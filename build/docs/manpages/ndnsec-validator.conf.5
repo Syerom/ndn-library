@@ -1,0 +1,835 @@
+.\" Man page generated from reStructuredText.
+.
+.TH "NDNSEC-VALIDATOR.CONF" "5" "Apr 12, 2017" "0.5.1-45-g1de6be6" "ndn-cxx: NDN C++ library with eXperimental eXtensions"
+.SH NAME
+ndnsec-validator.conf \- NDN trust validator configuration file
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.SS Contents
+.INDENT 0.0
+.IP \(bu 2
+\fI\%Validator Configuration File Format\fP
+.INDENT 2.0
+.IP \(bu 2
+\fI\%Rules in general\fP
+.IP \(bu 2
+\fI\%Filter Property\fP
+.INDENT 2.0
+.IP \(bu 2
+\fI\%Name Filter\fP
+.UNINDENT
+.IP \(bu 2
+\fI\%Checker Property\fP
+.INDENT 2.0
+.IP \(bu 2
+\fI\%Customized Checker\fP
+.IP \(bu 2
+\fI\%Hierarchical Checker\fP
+.IP \(bu 2
+\fI\%Fixed\-Signer Checker\fP
+.UNINDENT
+.IP \(bu 2
+\fI\%Trust Anchors\fP
+.IP \(bu 2
+\fI\%Example Configuration For NLSR\fP
+.IP \(bu 2
+\fI\%Example Configuration For NFD RIB Management\fP
+.UNINDENT
+.UNINDENT
+.sp
+You can set up a \fBValidator\fP via a configuration file. Next, we will show you how to
+write a configuration file.
+.sp
+The configuration file consists of \fBrules\fP and \fBtrust\-anchors\fP that will be used in
+validation. \fBRules\fP tell the validator how to validate a packet, while \fBtrust\-anchors\fP
+tell the validator which certificates are valid immediately. Here is an example of
+configuration file containing two rules.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+rule
+{
+  id "Simple Rule"
+  for data
+  filter
+  {
+    type name
+    name /localhost/example
+    relation is\-prefix\-of
+  }
+  checker
+  {
+    type customized
+    sig\-type rsa\-sha256
+    key\-locator
+    {
+      type name
+      name /ndn/edu/ucla/KEY/yingdi/ksk\-1234/ID\-CERT
+      relation equal
+    }
+  }
+}
+rule
+{
+  id "Testbed Validation Rule"
+  for data
+  checker
+  {
+    type hierarchical
+    sig\-type rsa\-sha256
+  }
+}
+trust\-anchor
+{
+  type file
+  file\-name "testbed\-trust\-anchor.cert"
+}
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBATTENTION: The order of rules MATTERS!\fP
+.UNINDENT
+.UNINDENT
+.sp
+A rule can be broken into two parts:
+.INDENT 0.0
+.IP \(bu 2
+The first part is to qualify packets to which the rule can be
+applied;
+.IP \(bu 2
+The second part is to check whether further validation process is
+necessary.
+.UNINDENT
+.sp
+When receiving a packet, the validator will apply rules in the configuration file
+one\-by\-one against the packet, until finding a rule that the packet qualifies for. And the
+second part of the matched rule will be used to check the validity of the packet. If the
+packet cannot qualify for any rules, it is treated as an invalid packet. Once a packet has
+been matched by a rule, the rest rules will not be applied against the packet. Therefore,
+you should always put the most specific rule to the top, otherwise it will become useless.
+.sp
+In the example configuration, the first rule indicates that all the data packets under the
+name prefix \fB/localhost/example\fP must be signed by a key whose certificate name is
+\fB/ndn/edu/ucla/KEY/yingdi/ksk\-1234/ID\-CERT\fP\&. If a packet does not have a name under prefix
+\fB/localhost/example\fP, validator will skip the first rule and apply the second rule. The
+second rule indicates that any data packets must be validated along a hierarchy. And a
+certificate stored in a file "testbed\-trust\-anchor.cert" is valid.
+.SH RULES IN GENERAL
+.sp
+A rule has four types of properties: \fBid\fP, \fBfor\fP, \fBfilter\fP, and \fBchecker\fP\&.
+.sp
+The property \fBid\fP uniquely identifies the rule in the configuration file. As long as
+being unique, any name can be given to a rule, e.g., "Simple Rule", "Testbed Validation
+Rule". A rule must have one and only one \fBid\fP property.
+.sp
+A rule is either used to validate an interest packet or a data packet.  This information
+is specified in the property \fBfor\fP\&. Only two value can be specified: \fBdata\fP and
+\fBinterest\fP\&. A rule must have one and only one \fBfor\fP property.
+.sp
+The property \fBfilter\fP further constrains the packets that can be checked by the
+rule. Filter property is not required in a rule, in this case, the rule will capture all
+the packets passed to it. A rule may contain more than one filters, in this case, a packet
+can be checked by a rule only if the packet satisfies all the filters.
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBATTENTION: A packet that satisfies all the filters may not be valid\fP\&.
+.UNINDENT
+.UNINDENT
+.sp
+The property \fBchecker\fP defines the conditions that a matched packet must fulfill to be
+treated as a valid packet. A rule must have at least one \fBchecker\fP property. A packet is
+treated as valid if it can pass at least one of the checkers and as invalid when it cannot
+pass any checkers.
+.sp
+\fBfilter\fP and \fBchecker\fP have their own properties. Next, we will introduce them
+separately.
+.SH FILTER PROPERTY
+.sp
+Filter has its own \fBtype\fP property. Although a rule may contain more than one filters,
+there is at most one filter of each type. So far, only one type of filter is defined:
+\fBname\fP\&. In other word, only one filter can be specified in a rule for now.
+.SS Name Filter
+.sp
+There are two ways to express the conditions on name. The first way is to specify a
+relationship between the packet name and a particular name.  In this case, two more
+properties are required: \fBname\fP and \fBrelation\fP\&. A packet can fulfill the condition if
+the \fBname\fP has a \fBrelation* to the packet name. Three types of **relation** has
+been defined: **equal\fP, \fBis\-prefix\-of\fP, \fBis\-strict\-prefix\-of\fP\&. For example, a filter
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+filter
+{
+  type name
+  name /localhost/example
+  relation equal
+}
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+shall only capture a packet with the exact name \fB/localhost/example\fP\&.
+And a filter
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+filter
+{
+  type name
+  name /localhost/example
+  relation is\-prefix\-of
+}
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+shall capture a packet with name \fB/localhost/example\fP or \fB/localhost/example/data\fP, but
+cannot catch a packet with name \fB/localhost/another_example\fP\&. And a filter
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+filter
+{
+  type name
+  name /localhost/example
+  relation is\-strict\-prefix\-of
+}
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+shall capture a packet with name \fB/localhost/example/data\fP, but cannot catch a packet
+with name \fB/localhost/example\fP\&.
+.sp
+The second way is to specify an utils\-ndn\-regex that can match the packet. In this
+case, only one property \fBregex\fP is required. For example, a filter
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+filter
+{
+  type name
+  regex ^[^<KEY>]*<KEY><>*<ksk\-.*><ID\-CERT>$
+}
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+shall capture all the identity certificates.
+.SH CHECKER PROPERTY
+.sp
+Passing all the filters in a rule only indicates that a packet can be checked using the
+rule, and it does not necessarily implies that the packet is valid. The validity of a
+packet is determined by the property \fBchecker\fP, which defines the conditions that a
+valid packet must fulfill.
+.sp
+Same as \fBfilter\fP, \fBchecker\fP has a property \fBtype\fP\&. We have defined three types of
+checkers: \fBcustomized\fP, and \fBhierarchical\fP, and \fBfixed\-signer\fP\&. As suggested by its
+name, \fBcustomized\fP checker allows you to customize the conditions according to specific
+requirements. \fBhierarchical\fP checker and \fBfixed\-signer\fP checker are pre\-defined
+shortcuts, which specify specific trust models separately.
+.SS Customized Checker
+.sp
+So far, we only allow three customized properties in a customized
+checker: \fBsig\-type\fP, \fBkey\-locator\fP\&. All of them are related to the
+\fBSignatureInfo\fP of a packet.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+checker
+{
+  type customized
+  sig\-type ...
+  key\-locator
+  {
+    ...
+  }
+}
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+The property \fBsig\-type\fP specifies the acceptable signature type.  Right now three
+signature types have been defined: \fBrsa\-sha256\fP and \fBecdsa\-sha256\fP (which are strong
+signature types) and \fBsha256\fP (which is a weak signature type).  If sig\-type is sha256,
+then \fBkey\-locator\fP will be ignored. Validator will simply calculate the digest of a
+packet and compare it with the one in \fBSignatureValue\fP\&. If sig\-type is rsa\-sha256 or
+ecdsa\-sha256, you have to further customize the checker with \fBkey\-locator\fP\&.
+.sp
+The property \fBkey\-locator\fP which specifies the conditions on \fBKeyLocator\fP\&. If the
+\fBkey\-locator\fP property is specified, it requires the existence of the \fBKeyLocator\fP
+field in \fBSignatureInfo\fP\&.  Although there are more than one types of \fBKeyLocator\fP
+defined in the \fI\%Packet Format\fP <\fBhttp://named-data.net/doc/ndn-tlv/signature.html\fP>,
+\fBkey\-locator\fP property only supports one type: \fBname\fP:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+key\-locator
+{
+  type name
+  ...
+}
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Such a key\-locator property specifies the conditions on the certificate name of the
+signing key. Since the conditions are about name, they can be specified in the same way as
+the name filter. For example, a checker could be:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+checker
+{
+  type customized
+  sig\-type rsa\-sha256
+  key\-locator
+  {
+    type name
+    name /ndn/edu/ucla/KEY/yingdi/ksk\-1234/ID\-CERT
+    relation equal
+  }
+}
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+This checker property requires that the packet must have a \fBrsa\-sha256\fP signature generated
+by a key whose certificate name is \fB/ndn/edu/ucla/KEY/yingdi/ksk\-1234/ID\-CERT\fP\&.
+.sp
+Besides the two ways to express conditions on the \fBKeyLocator\fP name (name and regex),
+you can further constrain the \fBKeyLocator\fP name using the information extracted from the
+packet name. This third type of condition is expressed via a property
+\fBhyper\-relation\fP\&. The \fBhyper\-relation\fP property consists of three parts:
+.INDENT 0.0
+.IP \(bu 2
+an NDN regular expression that can extract information from packet name
+.IP \(bu 2
+an NDN regular expression that can extract information from \fBKeyLocator\fP name
+.IP \(bu 2
+.INDENT 2.0
+.TP
+.B relation from the part extracted from \fBKeyLocator\fP name to the one extracted from the
+packet name
+.UNINDENT
+.UNINDENT
+.sp
+For example, a checker:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+checker
+{
+  type customized
+  sig\-type rsa\-sha256
+  key\-locator
+  {
+    type name
+    hyper\-relation
+    {
+      k\-regex ^([^<KEY>]*)<KEY>(<>*)<ksk\-.*><ID\-CERT>$
+      k\-expand \e\e1\e\e2
+      h\-relation is\-prefix\-of
+      p\-regex ^(<>*)$
+      p\-expand \e\e1
+
+    }
+  }
+}
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+requires the packet name must be under the corresponding namespace of the \fBKeyLocator\fP
+name.
+.sp
+In some cases, you can even customize checker with another property For example:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+checker
+{
+  type customized
+  sig\-type rsa\-sha256
+  key\-locator
+  {
+    type name
+    hyper\-relation
+    {
+      k\-regex ^([^<KEY>]*)<KEY>(<>*)<ksk\-.*><ID\-CERT>$
+      k\-expand \e\e1\e\e2
+      h\-relation is\-prefix\-of
+      p\-regex ^(<>*)$
+      p\-expand \e\e1
+    }
+  }
+}
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Hierarchical Checker
+.sp
+As implied by its name, hierarchical checker requires that the packet name must be under
+the namespace of the packet signer. A hierarchical checker:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+checker
+{
+  type hierarchical
+  sig\-type rsa\-sha256
+}
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+is equivalent to a customized checker:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+checker
+{
+  type customized
+  sig\-type rsa\-sha256
+  key\-locator
+  {
+    type name
+    hyper\-relation
+    {
+      k\-regex ^([^<KEY>]*)<KEY>(<>*)<ksk\-.*><ID\-CERT>$
+      k\-expand \e\e1\e\e2
+      h\-relation is\-prefix\-of
+      p\-regex ^(<>*)$
+      p\-expand \e\e1
+    }
+  }
+}
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SS Fixed\-Signer Checker
+.sp
+In some cases, you only accept packets signed with pre\-trusted certificates,
+i.e. "one\-step validation". Such a trust model can be expressed with \fBfixed\-signer\fP
+checker. And you only need to specify the trusted certificate via property \fBsigner\fP\&. The
+definition of \fBsigner\fP is the same as \fBtrust\-anchor\fP\&. For example:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+checker
+{
+  type fixed\-signer
+  sig\-type rsa\-sha256
+  signer
+  {
+    type file
+    file\-name "trusted\-signer.cert"
+  }
+  signer
+  {
+    type base64
+    base64\-string "Bv0DGwdG...amHFvHIMDw=="
+  }
+}
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SH TRUST ANCHORS
+.sp
+Although \fBtrust\-anchor\fP is always not required in the configuration file (for example,
+if fixed\-signer checker is used), it is very common to have a few trust\-anchors in the
+configuration file, otherwise most packets cannot be validated. A configuration file may
+contain more than one trust anchors, but the order of trust anchors does not matter. The
+structure of trust\-anchor is same as the \fBsigner\fP in fixed\-signer checker, for example:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+trust\-anchor
+{
+  type file
+  file\-name "trusted\-signer.cert"
+}
+trust\-anchor
+{
+  type base64
+  base64\-string "Bv0DGwdG...amHFvHIMDw=="
+}
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+You may also specify a trust\-anchor directory. All certificates under this directory are
+taken as trust anchors. For example, if all trust anchors are put into
+\fB/usr/local/etc/ndn/keys\fP\&.
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+trust\-anchor
+{
+  type dir
+  file\-name /usr/local/etc/ndn/keys
+}
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+If certificates under the directory might be changed during runtime, you can set a refresh
+period, such as
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+trust\-anchor
+{
+  type dir
+  file\-name /usr/local/etc/ndn/keys
+  refresh 1h ; refresh certificates every hour, other units include m (for minutes) and s (for seconds)
+}
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+There is another special trust anchor \fBany\fP\&.  As long as such a trust\-anchor is defined
+in config file, packet validation will be turned off.
+.sp
+\fBNOTE:\fP
+.INDENT 0.0
+.INDENT 3.5
+\fBATTENTION: This type of trust anchor is dangerous.  You should used it only when you
+want to disable packet validation temporarily (e.g, debugging code, building a demo).\fP
+.UNINDENT
+.UNINDENT
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+trust\-anchor
+{
+  type any
+}
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SH EXAMPLE CONFIGURATION FOR NLSR
+.sp
+The trust model of NLSR is semi\-hierarchical. An example certificate signing hierarchy is:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+                                 root
+                                  |
+                   +\-\-\-\-\-\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-+
+                 site1                          site2
+                   |                              |
+         +\-\-\-\-\-\-\-\-\-+\-\-\-\-\-\-\-\-\-+                    +
+      operator1           operator2            operator3
+         |                   |                    |
+   +\-\-\-\-\-+\-\-\-\-\-+        +\-\-\-\-+\-\-\-\-\-+        +\-\-\-\-\-+\-\-\-\-\-+\-\-\-\-\-\-\-\-+
+router1     router2  router3    router4  router5     router6  router7
+   |           |        |          |        |           |        |
+   +           +        +          +        +           +        +
+ NLSR        NSLR     NSLR       NSLR     NSLR        NSLR     NSLR
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+However, entities name may not follow the signing hierarchy, for
+example:
+.TS
+center;
+|l|l|.
+_
+T{
+Entity
+T}	T{
+Identity name and examples
+T}
+_
+T{
+root
+T}	T{
+\fB/<network>\fP
+.sp
+Identity example: \fB/ndn\fP
+.sp
+Certificate name example: \fB/ndn/KEY/ksk\-1/ID\-CERT/%01\fP
+T}
+_
+T{
+site
+T}	T{
+\fB/<network>/<site>\fP
+.sp
+Identity example:   \fB/ndn/edu/ucla\fP
+.sp
+Certificate name example: \fB/ndn/edu/ucla/KEY/ksk\-2/ID\-CERT/%01\fP
+T}
+_
+T{
+operator
+T}	T{
+\fB/<network>/<site>/%C1.O.N./<operator\-id>\fP
+.sp
+Identity example: \fB/ndn/edu/ucla/%C1.O.N./op1\fP
+.sp
+Certificate name example: \fB/ndn/edu/ucla/%C1.O.N./op1/KEY/ksk\-3/ID\-CERT/%01\fP
+T}
+_
+T{
+router
+T}	T{
+\fB/<network>/<site>/%C1.O.R./<router\-id>\fP
+.sp
+Identity example: \fB/ndn/edu/ucla/%C1.O.R./rt1\fP
+.sp
+Certificate name example: \fB/ndn/edu/ucla/%C1.O.R./rt1/KEY/ksk\-4/ID\-CERT/%01\fP
+T}
+_
+T{
+NLSR
+T}	T{
+\fB/<network>/<site>/%C1.O.R./<router\-id>/NLSR\fP
+.sp
+Identity example: \fB/ndn/edu/ucla/%C1.O.R./rt1/NLSR\fP
+.sp
+Certificate name example: \fB/ndn/edu/ucla/%C1.O.R./rt1/NLSR/KEY/ksk\-5/ID\-CERT/%01\fP
+T}
+_
+.TE
+.sp
+Assume that a typical NLSR data name is
+\fB/ndn/edu/ucla/%C1.O.R./rt1/NLSR/LSA/LSType.1/%01\fP\&. Then, the exception of naming
+hierarchy is "operator\-router". So we can write a configuration file with three rules. The
+first one is a customized rule that capture the normal NLSR data. The second one is a
+customized rule that handles the exception case of the hierarchy (operator\->router). And
+the last one is a hierarchical rule that handles the normal cases of the hierarchy.
+.sp
+We put the NLSR data rule to the first place, because NLSR data packets are the most
+frequently checked. The hierarchical exception rule is put to the second, because it is
+more specific than the last one.
+.sp
+And here is the configuration file:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+rule
+{
+  id "NSLR LSA Rule"
+  for data
+  filter
+  {
+    type name
+    regex ^[^<NLSR><LSA>]*<NLSR><LSA>
+  }
+  checker
+  {
+    type customized
+    sig\-type rsa\-sha256
+    key\-locator
+    {
+      type name
+      hyper\-relation
+      {
+        k\-regex ^([^<KEY>]*)<KEY><ksk\-.*><ID\-CERT>$
+        k\-expand \e\e1
+        h\-relation equal
+        p\-regex ^([^<NLSR><LSA>]*)<NLSR><LSA><LSType\e.\ed><>$
+        p\-expand \e\e1
+      }
+    }
+  }
+}
+rule
+{
+  id "NSLR Hierarchy Exception Rule"
+  for data
+  filter
+  {
+    type name
+    regex ^[^<KEY><%C1.O.R.>]*<%C1.O.R.><><KEY><ksk\-.*><ID\-CERT><>$
+  }
+  checker
+  {
+    type customized
+    sig\-type rsa\-sha256
+    key\-locator
+    {
+      type name
+      hyper\-relation
+      {
+        k\-regex ^([^<KEY><%C1.O.N.>]*)<%C1.O.N.><><KEY><ksk\-.*><ID\-CERT>$
+        k\-expand \e\e1
+        h\-relation equal
+        p\-regex ^([^<KEY><%C1.O.R.>]*)<%C1.O.R.><><KEY><ksk\-.*><ID\-CERT><>$
+        p\-expand \e\e1
+      }
+    }
+  }
+}
+rule
+{
+  id "NSLR Hierarchical Rule"
+  for data
+  filter
+  {
+    type name
+    regex ^[^<KEY>]*<KEY><ksk\-.*><ID\-CERT><>$
+  }
+  checker
+  {
+    type hierarchical
+    sig\-type rsa\-sha256
+  }
+}
+trust\-anchor
+{
+  type file
+  file\-name "testbed\-trust\-anchor.cert"
+}
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SH EXAMPLE CONFIGURATION FOR NFD RIB MANAGEMENT
+.sp
+Assume \fI\%NFD RIB Management\fP <\fBhttps://redmine.named-data.net/projects/nfd/wiki/RibMgmt\fP>
+allows any valid testbed certificate to register prefix, the configuration file could be
+written as:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+rule
+{
+  id "NRD Prefix Registration Command Rule"
+  for interest
+  filter
+  {
+    type name
+    regex ^<localhost><nrd>[<register><unregister><advertise><withdraw>]
+  }
+  checker
+  {
+    type customized
+    sig\-type rsa\-sha256
+    key\-locator
+    {
+      type name
+      regex ^[^<KEY>]*<KEY><>*<ksk\-.*><ID\-CERT>$
+    }
+  }
+}
+rule
+{
+  id "Testbed Hierarchy Rule"
+  for data
+  filter
+  {
+    type name
+    regex ^[^<KEY>]*<KEY><>*<ksk\-.*><ID\-CERT><>$
+  }
+  checker
+  {
+    type hierarchical
+    sig\-type rsa\-sha256
+  }
+}
+trust\-anchor
+{
+  type file
+  file\-name "testbed\-trust\-anchor.cert"
+}
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SH COPYRIGHT
+Copyright (c) 2013-2015 Regents of the University of California.
+.\" Generated by docutils manpage writer.
+.

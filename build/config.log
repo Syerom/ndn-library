@@ -1,0 +1,671 @@
+# project ndn-cxx (0.5.1) configured on Wed Apr 12 14:32:26 2017 by
+# waf 1.8.9 (abi 98, python 2070df0 on darwin)
+# using ./waf configure --with-examples
+#
+----------------------------------------
+Setting top to
+/Users/Mocca/Desktop/ndn-cxx
+----------------------------------------
+Setting out to
+/Users/Mocca/Desktop/ndn-cxx/build
+----------------------------------------
+Building static library
+no
+----------------------------------------
+Building shared library
+yes
+----------------------------------------
+Checking for 'clang++' (C++ compiler)
+find program=['clang++'] paths=['/opt/local/bin', '/opt/local/sbin', '/opt/local/bin', '/opt/local/sbin', '/usr/local/bin', '/usr/bin', '/bin', '/usr/sbin', '/sbin', '/opt/X11/bin'] var='CXX' -> ['/usr/bin/clang++']
+find program=['ar'] paths=['/opt/local/bin', '/opt/local/sbin', '/opt/local/bin', '/opt/local/sbin', '/usr/local/bin', '/usr/bin', '/bin', '/usr/sbin', '/sbin', '/opt/X11/bin'] var='AR' -> ['/opt/local/bin/ar']
+/usr/bin/clang++
+----------------------------------------
+Checking supported CXXFLAGS
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_c567b7f46c02dcd05a30c5cbd7df309f/test.cpp[0m
+
+['/usr/bin/clang++', '-Werror', '-std=c++11', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_c567b7f46c02dcd05a30c5cbd7df309f/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_c567b7f46c02dcd05a30c5cbd7df309f/testbuild/testprog[0m
+
+['/usr/bin/clang++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_c567b7f46c02dcd05a30c5cbd7df309f/testbuild/testprog']
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_66723f66638ceae7e3985ff5104b5884/test.cpp[0m
+
+['/usr/bin/clang++', '-Werror', '-stdlib=libc++', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_66723f66638ceae7e3985ff5104b5884/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_66723f66638ceae7e3985ff5104b5884/testbuild/testprog[0m
+
+['/usr/bin/clang++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_66723f66638ceae7e3985ff5104b5884/testbuild/testprog']
+-std=c++11 -stdlib=libc++
+----------------------------------------
+Checking supported LINKFLAGS
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_296a5ecfb838aedb0778b290e1e79fcb/test.cpp[0m
+
+['/usr/bin/clang++', '-std=c++11', '-stdlib=libc++', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_296a5ecfb838aedb0778b290e1e79fcb/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_296a5ecfb838aedb0778b290e1e79fcb/testbuild/testprog[0m
+
+['/usr/bin/clang++', '-Werror', '-stdlib=libc++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_296a5ecfb838aedb0778b290e1e79fcb/testbuild/testprog']
+-stdlib=libc++
+----------------------------------------
+Checking supported CXXFLAGS
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_d45675d848bbf5101b01c92a021337f4/test.cpp[0m
+
+['/usr/bin/clang++', '-std=c++11', '-stdlib=libc++', '-Werror', '-O2', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_d45675d848bbf5101b01c92a021337f4/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_d45675d848bbf5101b01c92a021337f4/testbuild/testprog[0m
+
+['/usr/bin/clang++', '-stdlib=libc++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_d45675d848bbf5101b01c92a021337f4/testbuild/testprog']
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_b26df7d9942975f6e95c44f1a2232cdd/test.cpp[0m
+
+['/usr/bin/clang++', '-std=c++11', '-stdlib=libc++', '-Werror', '-g', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_b26df7d9942975f6e95c44f1a2232cdd/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_b26df7d9942975f6e95c44f1a2232cdd/testbuild/testprog[0m
+
+['/usr/bin/clang++', '-stdlib=libc++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_b26df7d9942975f6e95c44f1a2232cdd/testbuild/testprog']
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_47167747fd6a92ca4bf3bd69f45fef60/test.cpp[0m
+
+['/usr/bin/clang++', '-std=c++11', '-stdlib=libc++', '-Werror', '-pedantic', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_47167747fd6a92ca4bf3bd69f45fef60/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_47167747fd6a92ca4bf3bd69f45fef60/testbuild/testprog[0m
+
+['/usr/bin/clang++', '-stdlib=libc++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_47167747fd6a92ca4bf3bd69f45fef60/testbuild/testprog']
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_4605ba8b722069a6b65c77194bb0ecc7/test.cpp[0m
+
+['/usr/bin/clang++', '-std=c++11', '-stdlib=libc++', '-Werror', '-Wall', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_4605ba8b722069a6b65c77194bb0ecc7/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_4605ba8b722069a6b65c77194bb0ecc7/testbuild/testprog[0m
+
+['/usr/bin/clang++', '-stdlib=libc++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_4605ba8b722069a6b65c77194bb0ecc7/testbuild/testprog']
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_6637f41afe9e424fb7665e570aa4314c/test.cpp[0m
+
+['/usr/bin/clang++', '-std=c++11', '-stdlib=libc++', '-Werror', '-Wextra', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_6637f41afe9e424fb7665e570aa4314c/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_6637f41afe9e424fb7665e570aa4314c/testbuild/testprog[0m
+
+['/usr/bin/clang++', '-stdlib=libc++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_6637f41afe9e424fb7665e570aa4314c/testbuild/testprog']
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_5dda7695ce00644ea499f3dd3d8c581c/test.cpp[0m
+
+['/usr/bin/clang++', '-std=c++11', '-stdlib=libc++', '-Werror', '-Wnon-virtual-dtor', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_5dda7695ce00644ea499f3dd3d8c581c/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_5dda7695ce00644ea499f3dd3d8c581c/testbuild/testprog[0m
+
+['/usr/bin/clang++', '-stdlib=libc++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_5dda7695ce00644ea499f3dd3d8c581c/testbuild/testprog']
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_8bd51b6190ad27da6e552253838a5434/test.cpp[0m
+
+['/usr/bin/clang++', '-std=c++11', '-stdlib=libc++', '-Werror', '-Wno-unused-parameter', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_8bd51b6190ad27da6e552253838a5434/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_8bd51b6190ad27da6e552253838a5434/testbuild/testprog[0m
+
+['/usr/bin/clang++', '-stdlib=libc++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_8bd51b6190ad27da6e552253838a5434/testbuild/testprog']
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_2a1d153beba5c4104d2cc0b66a2debca/test.cpp[0m
+
+['/usr/bin/clang++', '-std=c++11', '-stdlib=libc++', '-Werror', '-fcolor-diagnostics', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_2a1d153beba5c4104d2cc0b66a2debca/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_2a1d153beba5c4104d2cc0b66a2debca/testbuild/testprog[0m
+
+['/usr/bin/clang++', '-stdlib=libc++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_2a1d153beba5c4104d2cc0b66a2debca/testbuild/testprog']
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_185d985c5a1573f93f3e1a4dbcd0f06d/test.cpp[0m
+
+['/usr/bin/clang++', '-std=c++11', '-stdlib=libc++', '-Werror', '-Wno-unused-local-typedef', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_185d985c5a1573f93f3e1a4dbcd0f06d/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_185d985c5a1573f93f3e1a4dbcd0f06d/testbuild/testprog[0m
+
+['/usr/bin/clang++', '-stdlib=libc++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_185d985c5a1573f93f3e1a4dbcd0f06d/testbuild/testprog']
+-O2 -g -pedantic -Wall -Wextra -Wnon-virtual-dtor -Wno-unused-parameter -fcolor-diagnostics -Wno-unused-local-typedef
+----------------------------------------
+Checking for std::to_string
+==>
+
+#include <string>
+int
+main()
+{
+  std::string s = std::to_string(0);
+  s = std::to_string(0l);
+  s = std::to_string(0ll);
+  s = std::to_string(0u);
+  s = std::to_string(0ul);
+  s = std::to_string(0ull);
+  s = std::to_string(0.0f);
+  s = std::to_string(0.0);
+  s = std::to_string(0.0l);
+  s.clear();
+}
+
+<==
+[1/1] Compiling [32mbuild/.conf_check_816a3f1b47cd32102fd0a0ee1b7a76ee/test.cpp[0m
+
+['/usr/bin/clang++', '-O2', '-g', '-pedantic', '-Wall', '-Wextra', '-Wnon-virtual-dtor', '-Wno-unused-parameter', '-fcolor-diagnostics', '-Wno-unused-local-typedef', '-std=c++11', '-stdlib=libc++', '-DNDEBUG', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_816a3f1b47cd32102fd0a0ee1b7a76ee/testbuild/test.cpp.1.o']
+yes
+----------------------------------------------------
+Checking for std::vector::insert with const_iterator
+==>
+
+#include <vector>
+int
+main()
+{
+  std::vector<int> v;
+  std::vector<int>::const_iterator it = v.cbegin();
+
+  v.insert(it, 2);
+  it = v.cend() - 1;
+  v.erase(it);
+}
+
+<==
+[1/1] Compiling [32mbuild/.conf_check_bd56f6773dba498b3b68531cb1abb9ca/test.cpp[0m
+
+['/usr/bin/clang++', '-O2', '-g', '-pedantic', '-Wall', '-Wextra', '-Wnon-virtual-dtor', '-Wno-unused-parameter', '-fcolor-diagnostics', '-Wno-unused-local-typedef', '-std=c++11', '-stdlib=libc++', '-DNDEBUG', '-DHAVE_STD_TO_STRING=1', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_bd56f6773dba498b3b68531cb1abb9ca/testbuild/test.cpp.1.o']
+yes
+----------------------------------------------------
+Checking for std::is_default_constructible
+==>
+#include <type_traits>
+static_assert(std::is_default_constructible<int>::value, "");
+<==
+[1/1] Compiling [32mbuild/.conf_check_7a964cd02b5ad186b61e67451814fff1/test.cpp[0m
+
+['/usr/bin/clang++', '-O2', '-g', '-pedantic', '-Wall', '-Wextra', '-Wnon-virtual-dtor', '-Wno-unused-parameter', '-fcolor-diagnostics', '-Wno-unused-local-typedef', '-std=c++11', '-stdlib=libc++', '-DNDEBUG', '-DHAVE_STD_TO_STRING=1', '-DHAVE_VECTOR_INSERT_ERASE_CONST_ITERATOR=1', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_7a964cd02b5ad186b61e67451814fff1/testbuild/test.cpp.1.o']
+yes
+----------------------------------------------------
+Checking for std::is_nothrow_move_constructible
+==>
+#include <type_traits>
+static_assert(std::is_nothrow_move_constructible<int>::value, "");
+<==
+[1/1] Compiling [32mbuild/.conf_check_deffe787ab10bc520570549f2301b535/test.cpp[0m
+
+['/usr/bin/clang++', '-O2', '-g', '-pedantic', '-Wall', '-Wextra', '-Wnon-virtual-dtor', '-Wno-unused-parameter', '-fcolor-diagnostics', '-Wno-unused-local-typedef', '-std=c++11', '-stdlib=libc++', '-DNDEBUG', '-DHAVE_STD_TO_STRING=1', '-DHAVE_VECTOR_INSERT_ERASE_CONST_ITERATOR=1', '-DHAVE_IS_DEFAULT_CONSTRUCTIBLE=1', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_deffe787ab10bc520570549f2301b535/testbuild/test.cpp.1.o']
+yes
+----------------------------------------------------
+Checking for std::is_nothrow_move_assignable
+==>
+#include <type_traits>
+static_assert(std::is_nothrow_move_assignable<int>::value, "");
+<==
+[1/1] Compiling [32mbuild/.conf_check_64ad0a034fe6337f31789cc54bc266dc/test.cpp[0m
+
+['/usr/bin/clang++', '-O2', '-g', '-pedantic', '-Wall', '-Wextra', '-Wnon-virtual-dtor', '-Wno-unused-parameter', '-fcolor-diagnostics', '-Wno-unused-local-typedef', '-std=c++11', '-stdlib=libc++', '-DNDEBUG', '-DHAVE_STD_TO_STRING=1', '-DHAVE_VECTOR_INSERT_ERASE_CONST_ITERATOR=1', '-DHAVE_IS_DEFAULT_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_CONSTRUCTIBLE=1', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_64ad0a034fe6337f31789cc54bc266dc/testbuild/test.cpp.1.o']
+yes
+----------------------------------------------------
+Checking for program 'doxygen'
+/opt/local/bin/doxygen
+find program=['doxygen'] paths=['/opt/local/bin', '/opt/local/sbin', '/opt/local/bin', '/opt/local/sbin', '/usr/local/bin', '/usr/bin', '/bin', '/usr/sbin', '/sbin', '/opt/X11/bin'] var='DOXYGEN' -> ['/opt/local/bin/doxygen']
+----------------------------------------------------
+Checking for program 'tar'
+/usr/bin/tar
+find program=['tar'] paths=['/opt/local/bin', '/opt/local/sbin', '/opt/local/bin', '/opt/local/sbin', '/usr/local/bin', '/usr/bin', '/bin', '/usr/sbin', '/sbin', '/opt/X11/bin'] var='TAR' -> ['/usr/bin/tar']
+----------------------------------------------------
+Checking for program 'sphinx-build'
+/opt/local/bin/sphinx-build
+find program=['sphinx-build'] paths=['/opt/local/bin', '/opt/local/sbin', '/opt/local/bin', '/opt/local/sbin', '/usr/local/bin', '/usr/bin', '/bin', '/usr/sbin', '/sbin', '/opt/X11/bin'] var='SPHINX_BUILD' -> ['/opt/local/bin/sphinx-build']
+----------------------------------------------------
+Checking for program 'sh'
+/bin/sh
+find program=['sh'] paths=['/opt/local/bin', '/opt/local/sbin', '/opt/local/bin', '/opt/local/sbin', '/usr/local/bin', '/usr/bin', '/bin', '/usr/sbin', '/sbin', '/opt/X11/bin'] var='SH' -> ['/bin/sh']
+----------------------------------------------------
+Checking for library pthread
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_5e807e7b13e8d6179decde9be45d20c3/test.cpp[0m
+
+['/usr/bin/clang++', '-O2', '-g', '-pedantic', '-Wall', '-Wextra', '-Wnon-virtual-dtor', '-Wno-unused-parameter', '-fcolor-diagnostics', '-Wno-unused-local-typedef', '-std=c++11', '-stdlib=libc++', '-DNDEBUG', '-DHAVE_STD_TO_STRING=1', '-DHAVE_VECTOR_INSERT_ERASE_CONST_ITERATOR=1', '-DHAVE_IS_DEFAULT_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_ASSIGNABLE=1', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_5e807e7b13e8d6179decde9be45d20c3/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_5e807e7b13e8d6179decde9be45d20c3/testbuild/testprog[0m
+
+['/usr/bin/clang++', '-stdlib=libc++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_5e807e7b13e8d6179decde9be45d20c3/testbuild/testprog', '-lpthread']
+yes
+----------------------------------------------------
+Checking for library rt
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_e65a6f6011a47e18152a6a0988ab957e/test.cpp[0m
+
+['/usr/bin/clang++', '-O2', '-g', '-pedantic', '-Wall', '-Wextra', '-Wnon-virtual-dtor', '-Wno-unused-parameter', '-fcolor-diagnostics', '-Wno-unused-local-typedef', '-std=c++11', '-stdlib=libc++', '-DNDEBUG', '-DHAVE_STD_TO_STRING=1', '-DHAVE_VECTOR_INSERT_ERASE_CONST_ITERATOR=1', '-DHAVE_IS_DEFAULT_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_ASSIGNABLE=1', '-DHAVE_PTHREAD=1', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_e65a6f6011a47e18152a6a0988ab957e/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_e65a6f6011a47e18152a6a0988ab957e/testbuild/testprog[0m
+
+['/usr/bin/clang++', '-stdlib=libc++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_e65a6f6011a47e18152a6a0988ab957e/testbuild/testprog', '-lrt']
+err: ld: library not found for -lrt
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+
+from /Users/Mocca/Desktop/ndn-cxx: Test does not build: Traceback (most recent call last):
+  File "/Users/Mocca/Desktop/ndn-cxx/.waf-1.8.9-849024857bd41c3cf8e87dc01ecf79b0/waflib/Configure.py", line 343, in run_build
+    bld.compile()
+  File "/Users/Mocca/Desktop/ndn-cxx/.waf-1.8.9-849024857bd41c3cf8e87dc01ecf79b0/waflib/Build.py", line 184, in compile
+    raise Errors.BuildError(self.producer.error)
+BuildError: Build failed
+ -> task in 'testprog' failed (exit status 1): 
+	{task 4403676304: cxxprogram test.cpp.1.o -> testprog}
+['/usr/bin/clang++', '-stdlib=libc++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_e65a6f6011a47e18152a6a0988ab957e/testbuild/testprog', '-lrt']
+
+not found
+from /Users/Mocca/Desktop/ndn-cxx: The configuration failed
+----------------------------------------------------
+Checking for function getpass
+==>
+
+#include <unistd.h>
+int
+main(int, char**)
+{
+  char* pass = getpass("test prompt");
+  (void)(pass);
+  return 0;
+}
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_e3f549f4e902b0c0f0e7739e4e2b5d88/test.cpp[0m
+
+['/usr/bin/clang++', '-O2', '-g', '-pedantic', '-Wall', '-Wextra', '-Wnon-virtual-dtor', '-Wno-unused-parameter', '-fcolor-diagnostics', '-Wno-unused-local-typedef', '-std=c++11', '-stdlib=libc++', '-DNDEBUG', '-DHAVE_STD_TO_STRING=1', '-DHAVE_VECTOR_INSERT_ERASE_CONST_ITERATOR=1', '-DHAVE_IS_DEFAULT_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_ASSIGNABLE=1', '-DHAVE_PTHREAD=1', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_e3f549f4e902b0c0f0e7739e4e2b5d88/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_e3f549f4e902b0c0f0e7739e4e2b5d88/testbuild/testprog[0m
+
+['/usr/bin/clang++', '-stdlib=libc++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_e3f549f4e902b0c0f0e7739e4e2b5d88/testbuild/testprog']
+yes
+----------------------------------------------------
+Checking for rtnetlink
+==>
+#include <netinet/in.h>
+#include <linux/netlink.h>
+#include <linux/rtnetlink.h>
+#include <net/if.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_7482bb25178d3cc4dafa954a4156675f/test.cpp[0m
+
+['/usr/bin/clang++', '-O2', '-g', '-pedantic', '-Wall', '-Wextra', '-Wnon-virtual-dtor', '-Wno-unused-parameter', '-fcolor-diagnostics', '-Wno-unused-local-typedef', '-std=c++11', '-stdlib=libc++', '-DNDEBUG', '-DHAVE_STD_TO_STRING=1', '-DHAVE_VECTOR_INSERT_ERASE_CONST_ITERATOR=1', '-DHAVE_IS_DEFAULT_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_ASSIGNABLE=1', '-DHAVE_PTHREAD=1', '-DHAVE_GETPASS=1', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_7482bb25178d3cc4dafa954a4156675f/testbuild/test.cpp.1.o']
+err: [1m../test.cpp:2:10: [0m[0;1;31mfatal error: [0m[1m'linux/netlink.h' file not found[0m
+#include <linux/netlink.h>
+[0;1;32m         ^
+[0m1 error generated.
+
+from /Users/Mocca/Desktop/ndn-cxx: Test does not build: Traceback (most recent call last):
+  File "/Users/Mocca/Desktop/ndn-cxx/.waf-1.8.9-849024857bd41c3cf8e87dc01ecf79b0/waflib/Configure.py", line 343, in run_build
+    bld.compile()
+  File "/Users/Mocca/Desktop/ndn-cxx/.waf-1.8.9-849024857bd41c3cf8e87dc01ecf79b0/waflib/Build.py", line 184, in compile
+    raise Errors.BuildError(self.producer.error)
+BuildError: Build failed
+ -> task in 'testprog' failed (exit status 1): 
+	{task 4403590288: cxx test.cpp -> test.cpp.1.o}
+['/usr/bin/clang++', '-O2', '-g', '-pedantic', '-Wall', '-Wextra', '-Wnon-virtual-dtor', '-Wno-unused-parameter', '-fcolor-diagnostics', '-Wno-unused-local-typedef', '-std=c++11', '-stdlib=libc++', '-DNDEBUG', '-DHAVE_STD_TO_STRING=1', '-DHAVE_VECTOR_INSERT_ERASE_CONST_ITERATOR=1', '-DHAVE_IS_DEFAULT_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_ASSIGNABLE=1', '-DHAVE_PTHREAD=1', '-DHAVE_GETPASS=1', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_7482bb25178d3cc4dafa954a4156675f/testbuild/test.cpp.1.o']
+
+not found
+from /Users/Mocca/Desktop/ndn-cxx: The configuration failed
+----------------------------------------------------
+Checking for framework CoreFoundation
+==>
+#include <CoreFoundation/CoreFoundation.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_8b57d3c4a30aceb09c12db7e2b49c97e/test.cpp[0m
+
+['/usr/bin/clang++', '-O2', '-g', '-pedantic', '-Wall', '-Wextra', '-Wnon-virtual-dtor', '-Wno-unused-parameter', '-fcolor-diagnostics', '-Wno-unused-local-typedef', '-std=c++11', '-stdlib=libc++', '-DNDEBUG', '-DHAVE_STD_TO_STRING=1', '-DHAVE_VECTOR_INSERT_ERASE_CONST_ITERATOR=1', '-DHAVE_IS_DEFAULT_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_ASSIGNABLE=1', '-DHAVE_PTHREAD=1', '-DHAVE_GETPASS=1', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_8b57d3c4a30aceb09c12db7e2b49c97e/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_8b57d3c4a30aceb09c12db7e2b49c97e/testbuild/testprog[0m
+
+['/usr/bin/clang++', '-stdlib=libc++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_8b57d3c4a30aceb09c12db7e2b49c97e/testbuild/testprog', '-framework', 'CoreFoundation']
+yes
+----------------------------------------------------
+Checking for framework CoreServices
+==>
+#include <CoreServices/CoreServices.h>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_863c6128948e20eadda45e0d79ec6e61/test.cpp[0m
+
+['/usr/bin/clang++', '-O2', '-g', '-pedantic', '-Wall', '-Wextra', '-Wnon-virtual-dtor', '-Wno-unused-parameter', '-fcolor-diagnostics', '-Wno-unused-local-typedef', '-std=c++11', '-stdlib=libc++', '-DNDEBUG', '-DHAVE_STD_TO_STRING=1', '-DHAVE_VECTOR_INSERT_ERASE_CONST_ITERATOR=1', '-DHAVE_IS_DEFAULT_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_ASSIGNABLE=1', '-DHAVE_PTHREAD=1', '-DHAVE_GETPASS=1', '-DHAVE_COREFOUNDATION_COREFOUNDATION_H=1', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_863c6128948e20eadda45e0d79ec6e61/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_863c6128948e20eadda45e0d79ec6e61/testbuild/testprog[0m
+
+['/usr/bin/clang++', '-stdlib=libc++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_863c6128948e20eadda45e0d79ec6e61/testbuild/testprog', '-framework', 'CoreServices']
+yes
+----------------------------------------------------
+Checking for framework Security
+==>
+
+#include <CoreFoundation/CoreFoundation.h>
+#include <Security/Security.h>
+#include <Security/SecRandom.h>
+#include <CoreServices/CoreServices.h>
+#include <Security/SecDigestTransform.h>
+int main() {}
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_93532b78e7cdc812a0bc68b57c6d61df/test.cpp[0m
+
+['/usr/bin/clang++', '-O2', '-g', '-pedantic', '-Wall', '-Wextra', '-Wnon-virtual-dtor', '-Wno-unused-parameter', '-fcolor-diagnostics', '-Wno-unused-local-typedef', '-std=c++11', '-stdlib=libc++', '-DNDEBUG', '-DHAVE_STD_TO_STRING=1', '-DHAVE_VECTOR_INSERT_ERASE_CONST_ITERATOR=1', '-DHAVE_IS_DEFAULT_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_ASSIGNABLE=1', '-DHAVE_PTHREAD=1', '-DHAVE_GETPASS=1', '-DHAVE_COREFOUNDATION_COREFOUNDATION_H=1', '-DHAVE_CORESERVICES_CORESERVICES_H=1', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_93532b78e7cdc812a0bc68b57c6d61df/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_93532b78e7cdc812a0bc68b57c6d61df/testbuild/testprog[0m
+
+['/usr/bin/clang++', '-stdlib=libc++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_93532b78e7cdc812a0bc68b57c6d61df/testbuild/testprog', '-framework', 'Security', '-framework', 'CoreFoundation']
+yes
+----------------------------------------------------
+Checking for program 'pkg-config'
+/opt/local/bin/pkg-config
+find program=['pkg-config'] paths=['/opt/local/bin', '/opt/local/sbin', '/opt/local/bin', '/opt/local/sbin', '/usr/local/bin', '/usr/bin', '/bin', '/usr/sbin', '/sbin', '/opt/X11/bin'] var='PKGCONFIG' -> ['/opt/local/bin/pkg-config']
+----------------------------------------------------
+Checking for 'sqlite3'
+['/opt/local/bin/pkg-config', '--cflags', '--libs', 'sqlite3']
+out: -I/opt/local/include -L/opt/local/lib -lsqlite3
+
+yes
+----------------------------------------------------
+Checking Crypto++ lib
+5.6.5
+----------------------------------------------------
+Checking if CryptoPP library works
+==>
+
+#include "../../src/security/v1/cryptopp.hpp"
+#include <iostream>
+
+int
+main()
+{
+  using namespace CryptoPP;
+
+  std::string buffer = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+  SHA256 hash;
+  StringSource(buffer, true, new HashFilter(hash, new FileSink(std::cout)));
+  StringSource(reinterpret_cast<const uint8_t*>(buffer.c_str()), buffer.size(),
+               true, new HashFilter(hash, new FileSink(std::cout)));
+}
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_78460b634eb264ab38d7e04f18a01016/test.cpp[0m
+
+['/usr/bin/clang++', '-O2', '-g', '-pedantic', '-Wall', '-Wextra', '-Wnon-virtual-dtor', '-Wno-unused-parameter', '-fcolor-diagnostics', '-Wno-unused-local-typedef', '-std=c++11', '-stdlib=libc++', '-I/opt/local/include', '-DNDEBUG', '-DHAVE_STD_TO_STRING=1', '-DHAVE_VECTOR_INSERT_ERASE_CONST_ITERATOR=1', '-DHAVE_IS_DEFAULT_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_ASSIGNABLE=1', '-DHAVE_PTHREAD=1', '-DHAVE_GETPASS=1', '-DHAVE_COREFOUNDATION_COREFOUNDATION_H=1', '-DHAVE_CORESERVICES_CORESERVICES_H=1', '-DHAVE_SECURITY=1', '-DHAVE_OSX_SECURITY=1', '-DHAVE_SQLITE3=1', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_78460b634eb264ab38d7e04f18a01016/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_78460b634eb264ab38d7e04f18a01016/testbuild/testprog[0m
+
+['/usr/bin/clang++', '-stdlib=libc++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_78460b634eb264ab38d7e04f18a01016/testbuild/testprog', '-L/opt/local/lib', '-lcryptopp', '-lpthread']
+yes
+----------------------------------------------------
+Checking for OpenSSL lib
+"OpenSSL 1.0.2j-fips  26 Sep 2016"
+----------------------------------------------------
+Checking if OpenSSL library works
+==>
+
+int main(int argc, char **argv) {
+	(void)argc; (void)argv;
+	return 0;
+}
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_2a2b041842abd17fe83bcabef6d20f7b/test.cpp[0m
+
+['/usr/bin/clang++', '-O2', '-g', '-pedantic', '-Wall', '-Wextra', '-Wnon-virtual-dtor', '-Wno-unused-parameter', '-fcolor-diagnostics', '-Wno-unused-local-typedef', '-std=c++11', '-stdlib=libc++', '-I/usr/local/include', '-DNDEBUG', '-DHAVE_STD_TO_STRING=1', '-DHAVE_VECTOR_INSERT_ERASE_CONST_ITERATOR=1', '-DHAVE_IS_DEFAULT_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_ASSIGNABLE=1', '-DHAVE_PTHREAD=1', '-DHAVE_GETPASS=1', '-DHAVE_COREFOUNDATION_COREFOUNDATION_H=1', '-DHAVE_CORESERVICES_CORESERVICES_H=1', '-DHAVE_SECURITY=1', '-DHAVE_OSX_SECURITY=1', '-DHAVE_SQLITE3=1', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_2a2b041842abd17fe83bcabef6d20f7b/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_2a2b041842abd17fe83bcabef6d20f7b/testbuild/testprog[0m
+
+['/usr/bin/clang++', '-stdlib=libc++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_2a2b041842abd17fe83bcabef6d20f7b/testbuild/testprog', '-L/usr/local/lib', '-lssl', '-lcrypto']
+yes
+----------------------------------------------------
+Checking boost includes
+1.59.0
+----------------------------------------------------
+Checking boost libs
+Found the boost path in /opt/local/lib with the libraries:
+    /opt/local/lib/libboost_atomic-mt.dylib
+    /opt/local/lib/libboost_chrono-mt.a
+    /opt/local/lib/libboost_chrono-mt.dylib
+    /opt/local/lib/libboost_container-mt.dylib
+    /opt/local/lib/libboost_context-mt.dylib
+    /opt/local/lib/libboost_coroutine-mt.dylib
+    /opt/local/lib/libboost_date_time-mt.dylib
+    /opt/local/lib/libboost_exception-mt.a
+    /opt/local/lib/libboost_filesystem-mt.dylib
+    /opt/local/lib/libboost_graph-mt.dylib
+    /opt/local/lib/libboost_iostreams-mt.dylib
+    /opt/local/lib/libboost_locale-mt.dylib
+    /opt/local/lib/libboost_log-mt.dylib
+    /opt/local/lib/libboost_log_setup-mt.dylib
+    /opt/local/lib/libboost_math_c99-mt.dylib
+    /opt/local/lib/libboost_math_c99f-mt.dylib
+    /opt/local/lib/libboost_math_c99l-mt.dylib
+    /opt/local/lib/libboost_math_tr1-mt.dylib
+    /opt/local/lib/libboost_math_tr1f-mt.dylib
+    /opt/local/lib/libboost_math_tr1l-mt.dylib
+    /opt/local/lib/libboost_prg_exec_monitor-mt.dylib
+    /opt/local/lib/libboost_program_options-mt.dylib
+    /opt/local/lib/libboost_python-mt.dylib
+    /opt/local/lib/libboost_random-mt.dylib
+    /opt/local/lib/libboost_regex-mt.dylib
+    /opt/local/lib/libboost_serialization-mt.dylib
+    /opt/local/lib/libboost_signals-mt.dylib
+    /opt/local/lib/libboost_system-mt.a
+    /opt/local/lib/libboost_system-mt.dylib
+    /opt/local/lib/libboost_test_exec_monitor-mt.a
+    /opt/local/lib/libboost_thread-mt.dylib
+    /opt/local/lib/libboost_timer-mt.a
+    /opt/local/lib/libboost_timer-mt.dylib
+    /opt/local/lib/libboost_unit_test_framework-mt.dylib
+    /opt/local/lib/libboost_wave-mt.dylib
+    /opt/local/lib/libboost_wserialization-mt.dylib
+Trying pattern boost_system(-xgcc[0-9]{0,3})-mt-1_59.dylib$
+Trying pattern boost_system-mt-1_59.dylib$
+Trying pattern boost_system(-xgcc[0-9]{0,3})-mt.dylib$
+Trying pattern boost_system-mt.dylib$
+Found boost lib libboost_system-mt.dylib
+Trying pattern boost_filesystem(-xgcc[0-9]{0,3})-mt-1_59.dylib$
+Trying pattern boost_filesystem-mt-1_59.dylib$
+Trying pattern boost_filesystem(-xgcc[0-9]{0,3})-mt.dylib$
+Trying pattern boost_filesystem-mt.dylib$
+Found boost lib libboost_filesystem-mt.dylib
+Trying pattern boost_date_time(-xgcc[0-9]{0,3})-mt-1_59.dylib$
+Trying pattern boost_date_time-mt-1_59.dylib$
+Trying pattern boost_date_time(-xgcc[0-9]{0,3})-mt.dylib$
+Trying pattern boost_date_time-mt.dylib$
+Found boost lib libboost_date_time-mt.dylib
+Trying pattern boost_iostreams(-xgcc[0-9]{0,3})-mt-1_59.dylib$
+Trying pattern boost_iostreams-mt-1_59.dylib$
+Trying pattern boost_iostreams(-xgcc[0-9]{0,3})-mt.dylib$
+Trying pattern boost_iostreams-mt.dylib$
+Found boost lib libboost_iostreams-mt.dylib
+Trying pattern boost_regex(-xgcc[0-9]{0,3})-mt-1_59.dylib$
+Trying pattern boost_regex-mt-1_59.dylib$
+Trying pattern boost_regex(-xgcc[0-9]{0,3})-mt.dylib$
+Trying pattern boost_regex-mt.dylib$
+Found boost lib libboost_regex-mt.dylib
+Trying pattern boost_program_options(-xgcc[0-9]{0,3})-mt-1_59.dylib$
+Trying pattern boost_program_options-mt-1_59.dylib$
+Trying pattern boost_program_options(-xgcc[0-9]{0,3})-mt.dylib$
+Trying pattern boost_program_options-mt.dylib$
+Found boost lib libboost_program_options-mt.dylib
+Trying pattern boost_chrono(-xgcc[0-9]{0,3})-mt-1_59.dylib$
+Trying pattern boost_chrono-mt-1_59.dylib$
+Trying pattern boost_chrono(-xgcc[0-9]{0,3})-mt.dylib$
+Trying pattern boost_chrono-mt.dylib$
+Found boost lib libboost_chrono-mt.dylib
+Trying pattern boost_thread(-xgcc[0-9]{0,3})-mt-1_59.dylib$
+Trying pattern boost_thread-mt-1_59.dylib$
+Trying pattern boost_thread(-xgcc[0-9]{0,3})-mt.dylib$
+Trying pattern boost_thread-mt.dylib$
+Found boost lib libboost_thread-mt.dylib
+Trying pattern boost_log(-xgcc[0-9]{0,3})-mt-1_59.dylib$
+Trying pattern boost_log-mt-1_59.dylib$
+Trying pattern boost_log(-xgcc[0-9]{0,3})-mt.dylib$
+Trying pattern boost_log-mt.dylib$
+Found boost lib libboost_log-mt.dylib
+Trying pattern boost_log_setup(-xgcc[0-9]{0,3})-mt-1_59.dylib$
+Trying pattern boost_log_setup-mt-1_59.dylib$
+Trying pattern boost_log_setup(-xgcc[0-9]{0,3})-mt.dylib$
+Trying pattern boost_log_setup-mt.dylib$
+Found boost lib libboost_log_setup-mt.dylib
+ok
+----------------------------------------------------
+Checking the flags needed to use pthreads
+==>
+
+#include <pthread.h>
+static void* f(void*) { return 0; }
+int main() {
+	pthread_t th;
+	pthread_attr_t attr;
+	pthread_attr_init(&attr);
+	pthread_create(&th, &attr, &f, 0);
+	pthread_join(th, 0);
+	pthread_cleanup_push(0, 0);
+	pthread_cleanup_pop(0);
+	pthread_attr_destroy(&attr);
+}
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_2f247444f2faf64926a7e569e0841977/test.cpp[0m
+
+['/usr/bin/clang++', '-O2', '-g', '-pedantic', '-Wall', '-Wextra', '-Wnon-virtual-dtor', '-Wno-unused-parameter', '-fcolor-diagnostics', '-Wno-unused-local-typedef', '-std=c++11', '-stdlib=libc++', '-I/opt/local/include', '-DNDEBUG', '-DHAVE_STD_TO_STRING=1', '-DHAVE_VECTOR_INSERT_ERASE_CONST_ITERATOR=1', '-DHAVE_IS_DEFAULT_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_ASSIGNABLE=1', '-DHAVE_PTHREAD=1', '-DHAVE_GETPASS=1', '-DHAVE_COREFOUNDATION_COREFOUNDATION_H=1', '-DHAVE_CORESERVICES_CORESERVICES_H=1', '-DHAVE_SECURITY=1', '-DHAVE_OSX_SECURITY=1', '-DHAVE_SQLITE3=1', '-DHAVE_OPENSSL=1', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_2f247444f2faf64926a7e569e0841977/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_2f247444f2faf64926a7e569e0841977/testbuild/testprog[0m
+
+['/usr/bin/clang++', '-stdlib=libc++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_2f247444f2faf64926a7e569e0841977/testbuild/testprog', '-L/opt/local/lib', '-L/opt/local/lib', '-lboost_system-mt', '-lboost_filesystem-mt', '-lboost_date_time-mt', '-lboost_iostreams-mt', '-lboost_regex-mt', '-lboost_program_options-mt', '-lboost_chrono-mt', '-lboost_thread-mt', '-lboost_log-mt', '-lboost_log_setup-mt']
+----------------------------------------------------
+Checking for boost linkage
+==>
+
+#include <boost/system/error_code.hpp>
+int main() { boost::system::error_code c; }
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_7c932b570a57e1a562fd12187464e7d3/test.cpp[0m
+
+['/usr/bin/clang++', '-O2', '-g', '-pedantic', '-Wall', '-Wextra', '-Wnon-virtual-dtor', '-Wno-unused-parameter', '-fcolor-diagnostics', '-Wno-unused-local-typedef', '-std=c++11', '-stdlib=libc++', '-I/opt/local/include', '-DNDEBUG', '-DHAVE_STD_TO_STRING=1', '-DHAVE_VECTOR_INSERT_ERASE_CONST_ITERATOR=1', '-DHAVE_IS_DEFAULT_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_ASSIGNABLE=1', '-DHAVE_PTHREAD=1', '-DHAVE_GETPASS=1', '-DHAVE_COREFOUNDATION_COREFOUNDATION_H=1', '-DHAVE_CORESERVICES_CORESERVICES_H=1', '-DHAVE_SECURITY=1', '-DHAVE_OSX_SECURITY=1', '-DHAVE_SQLITE3=1', '-DHAVE_OPENSSL=1', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_7c932b570a57e1a562fd12187464e7d3/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_7c932b570a57e1a562fd12187464e7d3/testbuild/testprog[0m
+
+['/usr/bin/clang++', '-stdlib=libc++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_7c932b570a57e1a562fd12187464e7d3/testbuild/testprog', '-L/opt/local/lib', '-L/opt/local/lib', '-lboost_system-mt', '-lboost_filesystem-mt', '-lboost_date_time-mt', '-lboost_iostreams-mt', '-lboost_regex-mt', '-lboost_program_options-mt', '-lboost_chrono-mt', '-lboost_thread-mt', '-lboost_log-mt', '-lboost_log_setup-mt']
+==>
+
+#include <boost/thread.hpp>
+int main() { boost::thread t; }
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_1cf19fcabafe283952e95a32d5d5af71/test.cpp[0m
+
+['/usr/bin/clang++', '-O2', '-g', '-pedantic', '-Wall', '-Wextra', '-Wnon-virtual-dtor', '-Wno-unused-parameter', '-fcolor-diagnostics', '-Wno-unused-local-typedef', '-std=c++11', '-stdlib=libc++', '-I/opt/local/include', '-DNDEBUG', '-DHAVE_STD_TO_STRING=1', '-DHAVE_VECTOR_INSERT_ERASE_CONST_ITERATOR=1', '-DHAVE_IS_DEFAULT_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_ASSIGNABLE=1', '-DHAVE_PTHREAD=1', '-DHAVE_GETPASS=1', '-DHAVE_COREFOUNDATION_COREFOUNDATION_H=1', '-DHAVE_CORESERVICES_CORESERVICES_H=1', '-DHAVE_SECURITY=1', '-DHAVE_OSX_SECURITY=1', '-DHAVE_SQLITE3=1', '-DHAVE_OPENSSL=1', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_1cf19fcabafe283952e95a32d5d5af71/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_1cf19fcabafe283952e95a32d5d5af71/testbuild/testprog[0m
+
+['/usr/bin/clang++', '-stdlib=libc++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_1cf19fcabafe283952e95a32d5d5af71/testbuild/testprog', '-L/opt/local/lib', '-L/opt/local/lib', '-lboost_system-mt', '-lboost_filesystem-mt', '-lboost_date_time-mt', '-lboost_iostreams-mt', '-lboost_regex-mt', '-lboost_program_options-mt', '-lboost_chrono-mt', '-lboost_thread-mt', '-lboost_log-mt', '-lboost_log_setup-mt']
+==>
+
+#include <boost/log/trivial.hpp>
+#include <boost/log/utility/setup/console.hpp>
+#include <boost/log/utility/setup/common_attributes.hpp>
+int main() {
+	using namespace boost::log;
+	add_common_attributes();
+	add_console_log(std::clog, keywords::format = "%Message%");
+	BOOST_LOG_TRIVIAL(debug) << "log is working" << std::endl;
+}
+
+<==
+[1/2] Compiling [32mbuild/.conf_check_1fccc845be10ed9d81481193846edc44/test.cpp[0m
+
+['/usr/bin/clang++', '-O2', '-g', '-pedantic', '-Wall', '-Wextra', '-Wnon-virtual-dtor', '-Wno-unused-parameter', '-fcolor-diagnostics', '-Wno-unused-local-typedef', '-std=c++11', '-stdlib=libc++', '-I/opt/local/include', '-DNDEBUG', '-DHAVE_STD_TO_STRING=1', '-DHAVE_VECTOR_INSERT_ERASE_CONST_ITERATOR=1', '-DHAVE_IS_DEFAULT_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_CONSTRUCTIBLE=1', '-DHAVE_IS_NOTHROW_MOVE_ASSIGNABLE=1', '-DHAVE_PTHREAD=1', '-DHAVE_GETPASS=1', '-DHAVE_COREFOUNDATION_COREFOUNDATION_H=1', '-DHAVE_CORESERVICES_CORESERVICES_H=1', '-DHAVE_SECURITY=1', '-DHAVE_OSX_SECURITY=1', '-DHAVE_SQLITE3=1', '-DHAVE_OPENSSL=1', '-DBOOST_LOG_DYN_LINK', '../test.cpp', '-c', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_1fccc845be10ed9d81481193846edc44/testbuild/test.cpp.1.o']
+[2/2] Linking [33mbuild/.conf_check_1fccc845be10ed9d81481193846edc44/testbuild/testprog[0m
+
+['/usr/bin/clang++', '-stdlib=libc++', 'test.cpp.1.o', '-o', '/Users/Mocca/Desktop/ndn-cxx/build/.conf_check_1fccc845be10ed9d81481193846edc44/testbuild/testprog', '-L/opt/local/lib', '-L/opt/local/lib', '-lboost_system-mt', '-lboost_filesystem-mt', '-lboost_date_time-mt', '-lboost_iostreams-mt', '-lboost_regex-mt', '-lboost_program_options-mt', '-lboost_chrono-mt', '-lboost_thread-mt', '-lboost_log-mt', '-lboost_log_setup-mt']
+ok

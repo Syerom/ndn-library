@@ -1,0 +1,227 @@
+.\" Man page generated from reStructuredText.
+.
+.TH "NDN-CLIENT.CONF" "5" "Apr 12, 2017" "0.5.1-45-g1de6be6" "ndn-cxx: NDN C++ library with eXperimental eXtensions"
+.SH NAME
+ndn-client.conf \- Configuration file for NDN platform
+.
+.nr rst2man-indent-level 0
+.
+.de1 rstReportMargin
+\\$1 \\n[an-margin]
+level \\n[rst2man-indent-level]
+level margin: \\n[rst2man-indent\\n[rst2man-indent-level]]
+-
+\\n[rst2man-indent0]
+\\n[rst2man-indent1]
+\\n[rst2man-indent2]
+..
+.de1 INDENT
+.\" .rstReportMargin pre:
+. RS \\$1
+. nr rst2man-indent\\n[rst2man-indent-level] \\n[an-margin]
+. nr rst2man-indent-level +1
+.\" .rstReportMargin post:
+..
+.de UNINDENT
+. RE
+.\" indent \\n[an-margin]
+.\" old: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.nr rst2man-indent-level -1
+.\" new: \\n[rst2man-indent\\n[rst2man-indent-level]]
+.in \\n[rst2man-indent\\n[rst2man-indent-level]]u
+..
+.sp
+System configuration of NDN platform is specified in \fBclient.conf\fP\&.
+.sp
+The configuration file \fBclient.conf\fP is looked up in several directories in the following order:
+.INDENT 0.0
+.IP \(bu 2
+\fB$HOME/.ndn/\fP: user\-specific settings
+.IP \(bu 2
+\fB@SYSCONFDIR@/ndn/\fP (\fB/usr/local/etc/ndn\fP, \fB/opt/local/etc/ndn\fP, or other, depending how the
+library is configured): system\-wide settings
+.IP \(bu 2
+\fB/etc/ndn\fP: default system\-wide settings
+.UNINDENT
+.sp
+Here is an example of \fBclient.conf\fP for current ndn\-cxx package:
+.INDENT 0.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+; "transport" specifies Face\(aqs default transport connection.
+; The value is a unix or tcp4 scheme Face URI.
+;
+; For example:
+;
+;   unix:///var/run/nfd.sock
+;   tcp://192.0.2.1
+;   tcp4://example.com:6363
+
+transport=unix:///var/run/nfd.sock
+
+; "pib" determines which Public Info Base (PIB) should used by default in applications.
+; If "pib" is not specified, the default PIB will be used.
+; Note that default PIB could be different on different system.
+; If "pib" is specified, it may have a value of:
+;   pib\-sqlite3
+; pib=pib\-sqlite3
+
+; "tpm" determines which Trusted Platform Module (TPM) should used by default in applications.
+; If "tpm" is not specified, the default TPM will be used.
+; Note that default TPM could be different on different system.
+; If "tpm" is specified, it may have a value of:
+;   tpm\-osxkeychain (default in OS X)
+;   tpm\-file (default in operating systems other than OS X)
+; tpm=tpm\-file
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.SH NFD
+.INDENT 0.0
+.TP
+.B transport
+FaceUri for default connection toward local NDN forwarder.  Only \fBunix\fP and \fBtcp4\fP FaceUris
+can be specified here.
+.sp
+By default, \fBunix:///var/run/nfd.sock\fP is used.
+.INDENT 7.0
+.TP
+.B \&..note::
+This value can be overridden using the \fBNDN_CLIENT_TRANSPORT\fP environment variable.
+.UNINDENT
+.UNINDENT
+.SH KEY MANAGEMENT
+.INDENT 0.0
+.TP
+.B pib
+The public key information for each private key stored in TPM.  The format for this setting is:
+.INDENT 7.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+pib=[scheme]:[location]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Possible values for \fB[scheme]\fP:
+.INDENT 7.0
+.IP \(bu 2
+\fBpib\-sqlite3\fP: local PIB implementation with SQLite3 storage engine
+.sp
+Possible values for \fB[location]\fP:
+.INDENT 2.0
+.IP \(bu 2
+absolute path where SQLite3 database will be stored
+.IP \(bu 2
+relative path (relative to \fBconfig.conf\fP)
+.IP \(bu 2
+empty: default path \fB$HOME/.ndn\fP will be used
+.UNINDENT
+.UNINDENT
+.sp
+When \fB[location]\fP is empty, trailing \fB:\fP can be omitted.  For example:
+.INDENT 7.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+pib=pib\-sqlite3
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Changing PIB scheme without changing location is \fBnot\fP allowed.  If a change like this is
+necessary, the whole backend storage must be destroyed.  For example, when the default location is
+used:
+.INDENT 7.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+rm \-rf ~/.ndn/ndnsec\-*
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+It\(aqs not recommended to share the same directory between machines, e.g. via NFS.
+Simultaneous access from multiple machines may cause errors.
+.INDENT 7.0
+.TP
+.B \&..note::
+This value can be overridden using the \fBNDN_CLIENT_PIB\fP environment variable.
+.UNINDENT
+.TP
+.B tpm
+Trusted Platform Module (TPM) where the private keys are stored.  The format for this setting
+is:
+.INDENT 7.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+tpm=[scheme]:[location]
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+Possible values for \fB[scheme]\fP:
+.INDENT 7.0
+.IP \(bu 2
+\fBtpm\-osx\-keychain\fP (default on OS X platform): secure storage of private keys in OS X
+Keychain with OS\-provided access restrictions.
+.sp
+\fB[location]\fP parameter is ignored.
+.sp
+May not work for daemon applications, as user interaction may be required to access OS X
+Keychain.
+.IP \(bu 2
+\fBtpm\-file\fP (default on all other platforms): file\-based storage of private keys
+.sp
+Possible values for \fB[location]\fP:
+.INDENT 2.0
+.IP \(bu 2
+absolute path to directory that will store private/public key files (unencrypted with
+\fB0700\fP permission)
+.IP \(bu 2
+relative path (relative to \fBconfig.conf\fP)
+.IP \(bu 2
+empty: default path \fB$HOME/.ndn/ndnsec\-tpm\-file\fP will be used
+.UNINDENT
+.UNINDENT
+.sp
+When \fB[location]\fP is empty, trailing \fB:\fP can be omitted.  For example:
+.INDENT 7.0
+.INDENT 3.5
+.sp
+.nf
+.ft C
+tpm=tpm\-file
+.ft P
+.fi
+.UNINDENT
+.UNINDENT
+.sp
+\fBChange of \(ga\(gatpm\(ga\(ga setting is only possible together with \(ga\(gapib\(ga\(ga setting. Otherwise, an
+error will be generated during PIB/TPM access\fP
+.sp
+It\(aqs not recommended to share the same directory between machines, e.g. via NFS.
+Simultaneous access from multiple machines may cause errors.
+.INDENT 7.0
+.TP
+.B \&..note::
+This value can be overridden using the \fBNDN_CLIENT_TPM\fP environment variable.
+.UNINDENT
+.UNINDENT
+.SH COPYRIGHT
+Copyright (c) 2013-2015 Regents of the University of California.
+.\" Generated by docutils manpage writer.
+.
