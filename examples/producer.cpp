@@ -39,7 +39,7 @@ public:
   void
   run()
   {
-    m_face.setInterestFilter("/example/testApp",
+    m_face.setInterestFilter("/A/testApp",
                              bind(&Producer::onInterest, this, _1, _2),
                              RegisterPrefixSuccessCallback(),
                              bind(&Producer::onRegisterFailed, this, _1, _2));
@@ -51,6 +51,9 @@ private:
   onInterest(const InterestFilter& filter, const Interest& interest)
   {
     std::cout << "<< I: " << interest << std::endl;
+    std::cout << "HashValidation: " << interest.getHashValidation() << std::endl;
+    std::cout << "SID: " << interest.getSID() << std::endl;
+    std::cout << "Role Name: " << interest.getRoleName() << std::endl;
 
     // Create new name, based on Interest's name
     Name dataName(interest.getName());

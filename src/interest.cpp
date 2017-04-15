@@ -103,6 +103,81 @@ Interest::refreshNonce()
   setNonce(newNonce);
 }
 
+Interest&
+Interest::setHashValidation(char* ch){
+  if (m_wire.hasWire() && m_hashValidation.value_size() == strlen(ch)){
+    std::memcpy(const_cast<uint8_t*>(m_hashValidation.value()), &ch , strlen(ch));
+  }
+  else{
+    m_hashValidation = makeStringBlock(tlv::HashValidation,std::string(ch));
+    m_wire.reset();
+  }
+  return *this;
+}
+
+char*
+Interest::getHashValidation() const{
+  std::string hashValidation = readString(m_hashValidation);
+  char* ch = strdup(hashValidation.c_str());
+  if(!m_hashValidation.hasWire()){
+    const_cast<Interest*>(this)->setHashValidation(ch);
+    return ch;
+  }
+  else{
+    return ch;
+  }
+}
+
+Interest&
+Interest::setSID(char* ch){
+  if (m_wire.hasWire() && m_SID.value_size() == strlen(ch)){
+    std::memcpy(const_cast<uint8_t*>(m_SID.value()), &ch , strlen(ch));
+  }
+  else{
+    m_SID = makeStringBlock(tlv::SID,std::string(ch));
+    m_wire.reset();
+  }
+  return *this;
+}
+
+char*
+Interest::getSID() const{
+  std::string SID = readString(m_SID);
+  char* ch = strdup(SID.c_str());  
+  if(!m_SID.hasWire()){
+    const_cast<Interest*>(this)->setSID(ch);
+    return ch;
+  }
+  else{
+    return ch;
+  }
+}
+
+Interest&
+Interest::setRoleName(char* ch){
+  if (m_wire.hasWire() && m_RoleName.value_size() == strlen(ch)){
+    std::memcpy(const_cast<uint8_t*>(m_RoleName.value()), &ch , strlen(ch));
+  }
+  else{
+    m_RoleName = makeStringBlock(tlv::RoleName,std::string(ch));
+    m_wire.reset();
+  } 
+  return *this;
+} 
+
+char*
+Interest::getRoleName() const{
+  std::string roleName = readString(m_RoleName);
+  char* ch = strdup(roleName.c_str());
+
+  if(!m_RoleName.hasWire()){
+    const_cast<Interest*>(this)->setRoleName(ch);
+    return ch;
+  }else {
+    return ch;
+  }
+ }
+
 bool
 Interest::matchesName(const Name& name) const
 {
@@ -272,6 +347,18 @@ Interest::wireEncode(EncodingImpl<TAG>& encoder) const
   // Name
   totalLength += getName().wireEncode(encoder);
 
+  // HashValidation
+  getHashValidation();
+  totalLength += encoder.prependBlock(m_hashValidation);
+
+  // SID
+  getSID();
+
+  // Role Name
+  getRoleName();
+  totalLength += encoder.prependBlock(m_RoleName);
+
+  totalLength += encoder.prependBlock(m_SID);
   totalLength += encoder.prependVarNumber(totalLength);
   totalLength += encoder.prependVarNumber(tlv::Interest);
   return totalLength;
@@ -331,6 +418,15 @@ Interest::wireDecode(const Block& wire)
 
   // Nonce
   m_nonce = m_wire.get(tlv::Nonce);
+
+   // HashValidation
+  m_hashValidation = m_wire.get(tlv::HashValidation);
+
+  // SID
+  m_SID = m_wire.get(tlv::SID);
+
+  // Role Name
+  m_RoleName = m_wire.get(tlv::RoleName);
 
   // InterestLifetime
   val = m_wire.find(tlv::InterestLifetime);

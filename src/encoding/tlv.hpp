@@ -85,6 +85,12 @@ enum {
   LinkPreference = 30,
   LinkDelegation = 31,
   SelectedDelegation = 32,
+  // adding field in interest packet
+  HashValidation = 33,
+  // adding field in interest packet
+  SID = 34,
+  // adding field in interest packet
+  RoleName = 35,   
 
   AppPrivateBlock1 = 128,
   AppPrivateBlock2 = 32767

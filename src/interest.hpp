@@ -283,6 +283,42 @@ public: // Name and guiders
   void
   refreshNonce();
 
+  char*
+  getHashValidation() const;
+
+  Interest&
+  setHashValidation(char* ch);
+
+  bool
+  hasHashValidation() const
+  {
+    return m_hashValidation.hasWire();
+  }
+
+  char*
+  getSID() const;
+
+  Interest&
+  setSID(char* ch);
+
+  bool
+  hasSID() const
+  {
+    return m_SID.hasWire();
+  }
+
+  char*
+  getRoleName() const;
+
+  Interest&
+  setRoleName(char* ch);
+
+  bool
+  hasRoleName()
+  {
+    return m_RoleName.hasWire();
+  }
+
 public: // Selectors
   /**
    * @return true if Interest has any selector present
@@ -391,6 +427,7 @@ public: // Selectors
     return *this;
   }
 
+
 public: // EqualityComparable concept
   bool
   operator==(const Interest& other) const
@@ -409,6 +446,13 @@ private:
   Selectors m_selectors;
   mutable Block m_nonce;
   time::milliseconds m_interestLifetime;
+
+  // adding private member about new field of interest packet
+  mutable Block m_hashValidation;
+  // adding private member about new field of interest packet
+  mutable Block m_SID;
+  // adding private member about new field of interest packet
+  mutable Block m_RoleName;
 
   mutable Block m_link;
   mutable shared_ptr<Link> m_linkCached;

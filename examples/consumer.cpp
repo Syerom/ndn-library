@@ -39,6 +39,9 @@ public:
     Interest interest(Name("/A/testApp/randomData"));
     interest.setInterestLifetime(time::milliseconds(1000));
     interest.setMustBeFresh(true);
+    interest.setHashValidation((char*)"TestHashValidation");
+    interest.setSID((char*)"M000001");
+    interest.setRoleName((char*)"Engineer");
 
     m_face.expressInterest(interest,
                            bind(&Consumer::onData, this,  _1, _2),

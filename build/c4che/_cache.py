@@ -1,4 +1,4 @@
-AR = ['/opt/local/bin/ar']
+AR = ['/usr/bin/ar']
 ARCH_ST = ['-arch']
 ARFLAGS = ['rcs']
 BINDIR = '/usr/local/bin'
