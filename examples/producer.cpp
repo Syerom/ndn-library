@@ -58,10 +58,10 @@ private:
     // Create new name, based on Interest's name
     Name dataName(interest.getName());
     dataName
-      .append("testApp") // add "testApp" component to Interest name
-      .appendVersion();  // add "version" component (current UNIX timestamp in milliseconds)
+      .append("testApp"); // add "testApp" component to Interest name
+      //.appendVersion();  // add "version" component (current UNIX timestamp in milliseconds)
 
-    static const std::string content = "HELLO KITTY";
+    static const std::string content = "HELLO KITTY, by Mocca";
 
     // Create Data packet
     shared_ptr<Data> data = make_shared<Data>();

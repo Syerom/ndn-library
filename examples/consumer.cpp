@@ -36,9 +36,10 @@ public:
   void
   run()
   {
-    Interest interest(Name("/A/testApp/randomData"));
+    Interest interest(Name("/A/testApp/file.pdf"));
     interest.setInterestLifetime(time::milliseconds(1000));
     interest.setMustBeFresh(true);
+    // Set the value of new fields
     interest.setHashValidation((char*)"TestHashValidation");
     interest.setSID((char*)"M000001");
     interest.setRoleName((char*)"Engineer");
@@ -60,7 +61,7 @@ private:
   onData(const Interest& interest, const Data& data)
   { 
     std::cout << data << std::endl;
-        std::cout << "Content: " << readString(data.getContent()) << "\n";
+    std::cout << "Content: " << readString(data.getContent()) << "\n";
 
   }
 
