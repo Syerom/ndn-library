@@ -50,43 +50,80 @@ private:
   void
   onInterest(const InterestFilter& filter, const Interest& interest)
   {
+    static const std::string SID = "M000001";
+    static const std::string RoleName = "Engineer";
+    static const std::string hashValidation = "TestHashValidation1";
+
     std::cout << "<< I: " << interest << std::endl;
     std::cout << "HashValidation: " << interest.getHashValidation() << std::endl;
     std::cout << "SID: " << interest.getSID() << std::endl;
     std::cout << "Role Name: " << interest.getRoleName() << std::endl;
 
-    // Create new name, based on Interest's name
-    Name dataName(interest.getName());
-    dataName
-      .append("testApp"); // add "testApp" component to Interest name
-      //.appendVersion();  // add "version" component (current UNIX timestamp in milliseconds)
+    // check RoleName and SID
+    if (std::string(interest.getRoleName()) != RoleName ||
+        std::string(interest.getSID()) != SID)
+    {
+      std::string reason="Pemission Denied";
+      this->onRegisterFail(interest.getName(),reason,1);
+      lp::Nack nack(interest);
+      m_face.put(nack);
+    } else {
 
-    static const std::string content = "HELLO KITTY, by Mocca";
+      if (std::string(interest.getHashValidation())!= hashValidation)
+      {
+        std::string reason = "Hash Token Failed";
+        this->onRegisterFail(interest.getName(),reason,1);
+        lp::Nack nack(interest);
+        m_face.put(nack);
+      } else {
+        // Create new name, based on Interest's name
+        Name dataName(interest.getName());
+        dataName
+          .append("testApp"); // add "testApp" component to Interest name
+        //.appendVersion();  // add "version" component (current UNIX timestamp in milliseconds)
 
-    // Create Data packet
-    shared_ptr<Data> data = make_shared<Data>();
-    data->setName(dataName);
-    data->setFreshnessPeriod(time::seconds(10));
-    data->setContent(reinterpret_cast<const uint8_t*>(content.c_str()), content.size());
+        static const std::string content = "HELLO KITTY, by Mocca";
 
-    // Sign Data packet with default identity
-    m_keyChain.sign(*data);
-    // m_keyChain.sign(data, <identityName>);
-    // m_keyChain.sign(data, <certificate>);
+        // Create Data packet
+        shared_ptr<Data> data = make_shared<Data>();
+        data->setName(dataName);
+        data->setFreshnessPeriod(time::seconds(10));
+        data->setContent(reinterpret_cast<const uint8_t*>(content.c_str()), content.size());
 
-    // Return Data packet to the requester
-    std::cout << ">> D: " << *data << std::endl;
-    m_face.put(*data);
+        // Sign Data packet with default identity
+        m_keyChain.sign(*data);
+        // m_keyChain.sign(data, <identityName>);
+        // m_keyChain.sign(data, <certificate>);
+
+        // Return Data packet to the requester
+        std::cout << ">> D: " << *data << std::endl;
+        m_face.put(*data);
+      }
+     } 
   }
-
 
   void
   onRegisterFailed(const Name& prefix, const std::string& reason)
   {
-    std::cerr << "ERROR: Failed to register prefix \""
+    std::cout << "ERROR: Failed to register prefix \""
               << prefix << "\" in local hub's daemon (" << reason << ")"
               << std::endl;
     m_face.shutdown();
+  }
+
+  void
+  onRegisterFail(const Name& prefix, const std::string& reason, const int failType)
+  {
+    switch(failType){
+      case 1:
+              std::cerr << "ERROR: Failed to register prefix \""
+              << prefix << "\" in local hub's daemon (" << reason << ")"
+              << std::endl;
+              break;
+      default:
+              break;
+    }
+     //m_face.shutdown();
   }
 
 private:
