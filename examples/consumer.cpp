@@ -24,6 +24,13 @@
 // correct way to include ndn-cxx headers
 // #include <ndn-cxx/face.hpp>
 #include "face.hpp"
+#include <iostream>
+#include <cryptopp/base64.h>
+#include <cryptopp/sha.h>
+#include <cryptopp/aes.h>
+#include <cryptopp/filters.h>
+#include <cryptopp/modes.h>
+#include <cryptopp/hex.h>
 
 // Enclosing code in ndn simplifies coding (can also use `using namespace ndn`)
 namespace ndn {
@@ -35,14 +42,39 @@ class Consumer : noncopyable
 public:
   void
   run()
-  {
+  { 
+    // MHT left child
+    // Nameing prefix
+    std::string str1=std::string(this->SHA256Generation(std::string("/A/testApp"))).substr(0,32);
+    // File name
+    std::string str2=std::string(this->SHA256Generation(std::string("/file.pdf"))).substr(0,32);
+    // MHT right child
+    // Role name
+    std::string str3=std::string(this->SHA256Generation(RoleName)).substr(0,32);
+    // Attribute
+    std::string str4=std::string(this->SHA256Generation(std::string("permissionsalarydeployment"))).substr(0,32);
+    // MHT computation
+    std::string str5=std::string(this->SHA256Generation(str1.append(str2))).substr(0,32);
+    std::string str6=std::string(this->SHA256Generation(str3.append(str4))).substr(0,32);
+    // A token
+    std::string Atoken = std::string(this->SHA256Generation("M0419169MASTERKEY")).substr(0,32);
+    // hashvalidation
+    hashValidation = std::string(this->SHA256Generation(str5.append(str6))).substr(0,32);
+
+
+
     Interest interest(Name("/A/testApp/file.pdf"));
     interest.setInterestLifetime(time::milliseconds(1000));
     interest.setMustBeFresh(true);
+    interest.setNonce(0);
     // Set the value of new fields
-    interest.setHashValidation((char*)"TestHashValidation");
-    interest.setSID((char*)"M000001");
-    interest.setRoleName((char*)"Engineer");
+    std::ostringstream os;
+    os<< interest.getNonce();
+    hashValidation=std::string(this->SHA256Generation(Atoken.append(hashValidation).append(os.str()))).substr(0,32);
+    
+    interest.setHashValidation((char*)hashValidation.c_str());
+    interest.setSID((char*)SID.c_str());
+    interest.setRoleName((char*)RoleName.c_str());
 
     m_face.expressInterest(interest,
                            bind(&Consumer::onData, this,  _1, _2),
@@ -61,7 +93,7 @@ private:
   onData(const Interest& interest, const Data& data)
   { 
     std::cout << data << std::endl;
-    std::cout << "Content: " << readString(data.getContent()) << "\n";
+    //std::cout << "Content: " << readString(data.getContent()) << "\n";
 
   }
 
@@ -78,8 +110,25 @@ private:
     std::cout << "Timeout " << interest << std::endl;
   }
 
+  char*
+  SHA256Generation(std::string str)
+  {
+    byte digest[CryptoPP::SHA256::DIGESTSIZE];
+    CryptoPP::SHA256().CalculateDigest(digest, (byte*) &str[0], str.size());
+    std::string ret;
+    CryptoPP::HexEncoder encoder;
+    encoder.Attach(new CryptoPP::StringSink(ret));
+    encoder.Put(digest, sizeof(digest));
+    encoder.MessageEnd();
+    
+    return (char*)ret.c_str();
+  }
+
 private:
   Face m_face;
+  std::string SID = std::string("M000001");
+  std::string RoleName = std::string("Engineer");
+  std::string hashValidation ;
 };
 
 } // namespace examples

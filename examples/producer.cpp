@@ -28,6 +28,17 @@
 #include "face.hpp"
 #include "security/key-chain.hpp"
 
+#include <time.h>
+#include <chrono>
+#include <iostream>
+#include <cryptopp/base64.h>
+#include <cryptopp/sha.h>
+#include <cryptopp/aes.h>
+#include <cryptopp/filters.h>
+#include <cryptopp/modes.h>
+#include <cryptopp/hex.h>
+
+
 // Enclosing code in ndn simplifies coding (can also use `using namespace ndn`)
 namespace ndn {
 // Additional nested namespace could be used to prevent/limit name contentions
@@ -50,9 +61,29 @@ private:
   void
   onInterest(const InterestFilter& filter, const Interest& interest)
   {
-    static const std::string SID = "M000001";
-    static const std::string RoleName = "Engineer";
-    static const std::string hashValidation = "TestHashValidation";
+    // MHT left child
+    // Nameing prefix
+    std::string str1=std::string(this->SHA256Generation(std::string("/A/testApp"))).substr(0,32);
+    // File name
+    std::string str2=std::string(this->SHA256Generation(std::string("/file.pdf"))).substr(0,32);
+    // MHT right child
+    // Role name
+    std::string str3=std::string(this->SHA256Generation(std::string(interest.getRoleName()))).substr(0,32);
+    // Attribute
+    std::string str4=std::string(this->SHA256Generation(std::string("permissionsalarydeployment"))).substr(0,32);
+    // MHT computation
+    std::string str5=std::string(this->SHA256Generation(str1.append(str2))).substr(0,32);
+    std::string str6=std::string(this->SHA256Generation(str3.append(str4))).substr(0,32);
+    // A token
+    std::string Atoken = std::string(this->SHA256Generation("M0419169MASTERKEY")).substr(0,32);
+    // hashvalidation
+    hashValidation = std::string(this->SHA256Generation(str5.append(str6))).substr(0,32);
+
+    std::ostringstream os;
+    os<< interest.getNonce();
+    hashValidation=std::string(this->SHA256Generation(Atoken.append(hashValidation).append(os.str()))).substr(0,32);
+    os.str()="";
+    os.clear();
 
     std::cout << "<< I: " << interest << std::endl;
     std::cout << "HashValidation: " << interest.getHashValidation() << std::endl;
@@ -68,7 +99,7 @@ private:
       lp::Nack nack(interest);
       m_face.put(nack);
     } else {
-
+      // check hash validation
       if (std::string(interest.getHashValidation())!= hashValidation)
       {
         std::string reason = "Hash Token Failed";
@@ -91,7 +122,11 @@ private:
         data->setContent(reinterpret_cast<const uint8_t*>(content.c_str()), content.size());
 
         // Sign Data packet with default identity
+        std::chrono::steady_clock::time_point startTime = std::chrono::steady_clock::now();
         m_keyChain.sign(*data);
+        std::chrono::steady_clock::time_point endTime = std::chrono::steady_clock::now();
+        std::cout<< std::chrono::duration_cast<std::chrono::microseconds>(endTime-startTime).count()<<"us"<<std::endl;
+
         // m_keyChain.sign(data, <identityName>);
         // m_keyChain.sign(data, <certificate>);
 
@@ -126,9 +161,27 @@ private:
      //m_face.shutdown();
   }
 
+  char*
+  SHA256Generation(std::string str)
+  {
+    byte digest[CryptoPP::SHA256::DIGESTSIZE];
+    CryptoPP::SHA256().CalculateDigest(digest, (byte*) &str[0], str.size());
+    std::string ret;
+    CryptoPP::HexEncoder encoder;
+    encoder.Attach(new CryptoPP::StringSink(ret));
+    encoder.Put(digest, sizeof(digest));
+    encoder.MessageEnd();
+    
+    return (char*)ret.c_str();
+  }
+
+
 private:
   Face m_face;
   KeyChain m_keyChain;
+  std::string SID = std::string("M000001");
+  std::string RoleName = std::string("Engineer");
+  std::string hashValidation ;
 };
 
 } // namespace examples
