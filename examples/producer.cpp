@@ -52,7 +52,7 @@ private:
   {
     static const std::string SID = "M000001";
     static const std::string RoleName = "Engineer";
-    static const std::string hashValidation = "TestHashValidation1";
+    static const std::string hashValidation = "TestHashValidation";
 
     std::cout << "<< I: " << interest << std::endl;
     std::cout << "HashValidation: " << interest.getHashValidation() << std::endl;
@@ -63,7 +63,7 @@ private:
     if (std::string(interest.getRoleName()) != RoleName ||
         std::string(interest.getSID()) != SID)
     {
-      std::string reason="Pemission Denied";
+      std::string reason="Permission Denied";
       this->onRegisterFail(interest.getName(),reason,1);
       lp::Nack nack(interest);
       m_face.put(nack);
