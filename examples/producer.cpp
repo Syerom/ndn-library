@@ -113,7 +113,7 @@ private:
           .append("testApp"); // add "testApp" component to Interest name
         //.appendVersion();  // add "version" component (current UNIX timestamp in milliseconds)
 
-        static const std::string content = "HELLO KITTY, by Mocca";
+        static const std::string content = AESEncrypt("HELLO KITTY, by Mocca");
 
         // Create Data packet
         shared_ptr<Data> data = make_shared<Data>();
@@ -175,6 +175,24 @@ private:
     return (char*)ret.c_str();
   }
 
+  std::string
+  AESEncrypt(std::string plainText)
+  {
+    byte key[CryptoPP::AES::DEFAULT_KEYLENGTH], iv[CryptoPP::AES::BLOCKSIZE];
+    memset(key,0x00,CryptoPP::AES::DEFAULT_KEYLENGTH);
+    memset(iv,0x00,CryptoPP::AES::BLOCKSIZE);
+
+    std::string cipherText;
+    CryptoPP::AES::Encryption aesEncryption(key,CryptoPP::AES::DEFAULT_KEYLENGTH);
+    CryptoPP::CBC_Mode_ExternalCipher::Encryption cbcEncryption(aesEncryption,iv);
+    CryptoPP::StreamTransformationFilter stfEncryptor(cbcEncryption,
+                                                    new CryptoPP::StringSink(cipherText));
+    stfEncryptor.Put(reinterpret_cast<const unsigned char*>(plainText.c_str()),
+                   plainText.length()+1);
+    stfEncryptor.MessageEnd();
+  
+    return cipherText;
+  }
 
 private:
   Face m_face;

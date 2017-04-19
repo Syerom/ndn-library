@@ -93,7 +93,7 @@ private:
   onData(const Interest& interest, const Data& data)
   { 
     std::cout << data << std::endl;
-    //std::cout << "Content: " << readString(data.getContent()) << "\n";
+    std::cout << "Content: " << AESDecrypt(readString(data.getContent())) << "\n";
 
   }
 
@@ -123,6 +123,24 @@ private:
     
     return (char*)ret.c_str();
   }
+
+  std::string
+  AESDecrypt(std::string cipherText)
+  {
+    byte key[CryptoPP::AES::DEFAULT_KEYLENGTH], iv[CryptoPP::AES::BLOCKSIZE];
+    memset(key,0x00,CryptoPP::AES::DEFAULT_KEYLENGTH);
+    memset(iv,0x00,CryptoPP::AES::BLOCKSIZE);
+
+    std::string decryptText;
+    
+    CryptoPP::AES::Decryption aesDecryption(key, CryptoPP::AES::DEFAULT_KEYLENGTH);
+    CryptoPP::CBC_Mode_ExternalCipher::Decryption cbcDecryption( aesDecryption, iv );
+    CryptoPP::StreamTransformationFilter stfDecryptor(cbcDecryption, new CryptoPP::StringSink( decryptText ));
+    stfDecryptor.Put( reinterpret_cast<const unsigned char*>( cipherText.c_str() ), cipherText.size());
+    stfDecryptor.MessageEnd();
+    return decryptText;
+  }
+
 
 private:
   Face m_face;
