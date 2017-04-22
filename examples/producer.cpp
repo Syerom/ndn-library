@@ -37,6 +37,7 @@
 #include <cryptopp/filters.h>
 #include <cryptopp/modes.h>
 #include <cryptopp/hex.h>
+#include <fstream>
 
 
 // Enclosing code in ndn simplifies coding (can also use `using namespace ndn`)
@@ -72,6 +73,8 @@ private:
     // Attribute
     std::string str4=std::string(this->SHA256Generation(std::string("permissionsalarydeployment"))).substr(0,32);
     // MHT computation
+    //std::chrono::steady_clock::time_point startTime = std::chrono::steady_clock::now();
+
     std::string str5=std::string(this->SHA256Generation(str1.append(str2))).substr(0,32);
     std::string str6=std::string(this->SHA256Generation(str3.append(str4))).substr(0,32);
     // A token
@@ -103,9 +106,12 @@ private:
       if (std::string(interest.getHashValidation())!= hashValidation)
       {
         std::string reason = "Hash Token Failed";
-        this->onRegisterFail(interest.getName(),reason,1);
         lp::Nack nack(interest);
         m_face.put(nack);
+        this->onRegisterFail(interest.getName(),reason,1);
+        //std::chrono::steady_clock::time_point endTime = std::chrono::steady_clock::now();
+        //std::cout<< std::chrono::duration_cast<std::chrono::microseconds>(endTime-startTime).count()<<"us"<<std::endl;
+        //writeToCSV(std::chrono::duration_cast<std::chrono::microseconds>(endTime-startTime).count(),std::string("./data/serverFailDelay.csv"));
       } else {
         // Create new name, based on Interest's name
         Name dataName(interest.getName());
@@ -122,11 +128,10 @@ private:
         data->setContent(reinterpret_cast<const uint8_t*>(content.c_str()), content.size());
 
         // Sign Data packet with default identity
-        std::chrono::steady_clock::time_point startTime = std::chrono::steady_clock::now();
+        //std::chrono::steady_clock::time_point startTime = std::chrono::steady_clock::now();
         m_keyChain.sign(*data);
-        std::chrono::steady_clock::time_point endTime = std::chrono::steady_clock::now();
-        std::cout<< std::chrono::duration_cast<std::chrono::microseconds>(endTime-startTime).count()<<"us"<<std::endl;
 
+        
         // m_keyChain.sign(data, <identityName>);
         // m_keyChain.sign(data, <certificate>);
 
@@ -192,6 +197,14 @@ private:
     stfEncryptor.MessageEnd();
   
     return cipherText;
+  }
+
+  void writeToCSV(int time,std::string str){
+    std::ofstream fp;
+    //printf("haha\n");
+    fp.open(str,std::ios::app);
+    fp<<time<<",\t"<<std::endl;
+    fp.close();
   }
 
 private:

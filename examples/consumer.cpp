@@ -24,6 +24,8 @@
 // correct way to include ndn-cxx headers
 // #include <ndn-cxx/face.hpp>
 #include "face.hpp"
+#include <time.h>
+#include <chrono>
 #include <iostream>
 #include <cryptopp/base64.h>
 #include <cryptopp/sha.h>
@@ -31,6 +33,10 @@
 #include <cryptopp/filters.h>
 #include <cryptopp/modes.h>
 #include <cryptopp/hex.h>
+#include <fstream>
+#include <stdio.h>
+#include <stdlib.h>
+
 
 // Enclosing code in ndn simplifies coding (can also use `using namespace ndn`)
 namespace ndn {
@@ -54,6 +60,8 @@ public:
     // Attribute
     std::string str4=std::string(this->SHA256Generation(std::string("permissionsalarydeployment"))).substr(0,32);
     // MHT computation
+    //std::chrono::steady_clock::time_point startTime = std::chrono::steady_clock::now();
+
     std::string str5=std::string(this->SHA256Generation(str1.append(str2))).substr(0,32);
     std::string str6=std::string(this->SHA256Generation(str3.append(str4))).substr(0,32);
     // A token
@@ -66,35 +74,51 @@ public:
     Interest interest(Name("/A/testApp/file.pdf"));
     interest.setInterestLifetime(time::milliseconds(1000));
     interest.setMustBeFresh(true);
-    interest.setNonce(0);
+    int ran= rand()%100000+1;
+    interest.setNonce(ran);
     // Set the value of new fields
     std::ostringstream os;
     os<< interest.getNonce();
     hashValidation=std::string(this->SHA256Generation(Atoken.append(hashValidation).append(os.str()))).substr(0,32);
-    
+    os.str()="";
+    os.clear();
+
     interest.setHashValidation((char*)hashValidation.c_str());
     interest.setSID((char*)SID.c_str());
     interest.setRoleName((char*)RoleName.c_str());
+    std::cout << interest.getHashValidation() << std::endl;
+
+    //std::chrono::steady_clock::time_point startTime = std::chrono::steady_clock::now();
 
     m_face.expressInterest(interest,
                            bind(&Consumer::onData, this,  _1, _2),
                            bind(&Consumer::onNack, this, _1, _2),
                            bind(&Consumer::onTimeout, this, _1));
 
+
+    //writeToCSV(std::chrono::duration_cast<std::chrono::microseconds>(endTime-startTime).count(),std::string("./data/clientProcessDelay.csv"));
+
     std::cout << "Sending " << interest << std::endl;
+    std::cout << std::endl;
 
     // processEvents will block until the requested data received or timeout occurs
-    m_face.processEvents();
+    //std::chrono::steady_clock::time_point startTime = std::chrono::steady_clock::now();
 
+    m_face.processEvents();
+   //std::chrono::steady_clock::time_point endTime = std::chrono::steady_clock::now();
+   //std::cout<< std::chrono::duration_cast<std::chrono::microseconds>(endTime-startTime).count()<<"us"<<std::endl;
   }
 
 private:
   void
   onData(const Interest& interest, const Data& data)
   { 
+    //std::chrono::steady_clock::time_point startTime = std::chrono::steady_clock::now();
     std::cout << data << std::endl;
     std::cout << "Content: " << AESDecrypt(readString(data.getContent())) << "\n";
-
+    // std::chrono::steady_clock::time_point endTime = std::chrono::steady_clock::now();
+    // std::cout<< std::chrono::duration_cast<std::chrono::microseconds>(endTime-startTime).count()<<"us"<<std::endl;
+    // writeToCSV(std::chrono::duration_cast<std::chrono::microseconds>(endTime-startTime).count(),std::string("./data/clientOnDataDelay1.csv"));
   }
 
   void
@@ -141,6 +165,14 @@ private:
     return decryptText;
   }
 
+  void writeToCSV(int time,std::string str){
+    std::ofstream fp;
+    //printf("haha\n");
+    fp.open(str,std::ios::app);
+    fp<<time<<",\t"<<std::endl;
+    fp.close();
+  }
+
 
 private:
   Face m_face;
@@ -155,9 +187,15 @@ private:
 int
 main(int argc, char** argv)
 {
-  ndn::examples::Consumer consumer;
+  srand(time(NULL));
+
   try {
-    consumer.run();
+      int flag=1;
+      while(flag<=1){
+      ndn::examples::Consumer consumer;
+      consumer.run();
+        flag++;
+      }
   }
   catch (const std::exception& e) {
     std::cerr << "ERROR: " << e.what() << std::endl;
