@@ -89,7 +89,6 @@ Validator::onData(const Interest& interest,
                   const Data& data,
                   const shared_ptr<ValidationRequest>& nextStep)
 {
-  std::chrono::steady_clock::time_point startTime = std::chrono::steady_clock::now();
   shared_ptr<const Data> certificateData = preCertificateValidation(data);
 
   if (!static_cast<bool>(certificateData))
@@ -99,15 +98,6 @@ Validator::onData(const Interest& interest,
   validate(*certificateData,
            nextStep->m_onDataValidated, nextStep->m_onDataValidationFailed,
            nextStep->m_nSteps);
-  
-  std::chrono::steady_clock::time_point endTime = std::chrono::steady_clock::now();
-  std::cout<< std::chrono::duration_cast<std::chrono::microseconds>(endTime-startTime).count()<<"us"<<std::endl;
-  std::ofstream fp;
-    //printf("haha\n");
-  fp.open(std::string("./data/verifySignature.csv"),std::ios::app);
-  fp<<std::chrono::duration_cast<std::chrono::microseconds>(endTime-startTime).count()<<",\t"<<std::endl;
-  fp.close();
-
 }
 
 bool
